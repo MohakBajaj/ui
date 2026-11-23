@@ -363,10 +363,10 @@ const visible = { visibilityProperty: true, checkVisibilityCSS: true }
 
 // Whether an element shows, as far as the browser can tell, and isn't hidden
 // from screen readers, like a decorative avatar. Without `checkVisibility`, a
-// `hidden` ancestor hides it.
+// `hidden` ancestor hides it. A popup animating out is already closed.
 const isShown = (el: HTMLElement) =>
   (el.checkVisibility?.(visible) ?? !el.closest("[hidden]")) &&
-  !el.closest('[aria-hidden="true"]')
+  !el.closest('[aria-hidden="true"], [data-ending-style]')
 
 // Inert content takes nothing from a person, like the page behind a modal
 // dialog or a carousel's slide out of view, so it takes nothing from an agent.
@@ -777,11 +777,18 @@ function createAgent(
       if (meant.length === 1) {
         return meant[0]
       }
-      // An open popup is what the agent means while it's open, like the dialog a row's menu just opened.
+      // An open popup is what the agent means while it's open, like the dialog a row's menu just opened,
+      // but only among labels that match alike: one holding the words doesn't beat the exact one.
+      const exact = meant.filter(
+        ({ entry }) => entry.label && fold(entry.label) === needle
+      )
       const open = meant.filter(
         ({ instance }) => (instance.get() as { open?: boolean }).open === true
       )
-      if (open.length === 1) {
+      if (
+        open.length === 1 &&
+        (!exact.length || exact.length === meant.length)
+      ) {
         return open[0]
       }
       // A Button and the popups it opens are one button on the page. A press is on the
@@ -1426,13 +1433,18 @@ function createAgent(
         const rest = args[0]
           .trim()
           .replace(/^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?/i, "")
-        if (Number.isNaN(number) || /^[\s,.']*\d/.test(rest)) {
+        // A list whose values are numbers, like a select of project ids, leaves
+        // other text to the label lookup below.
+        const byLabel = opens && (Number.isNaN(number) || rest.trim())
+        if (!byLabel && (Number.isNaN(number) || /^[\s,.']*\d/.test(rest))) {
           throw new Error(`${entry.component} ${entry.ref} takes a number.`)
         }
-        args = [
-          Array.isArray(state.value) ? [number] : number,
-          ...args.slice(1),
-        ]
+        if (!byLabel) {
+          args = [
+            Array.isArray(state.value) ? [number] : number,
+            ...args.slice(1),
+          ]
+        }
       }
       // One value for a component that holds a list, like a multiple select's, is a list of one.
       // A token input reads its own text.
@@ -1451,8 +1463,8 @@ function createAgent(
         openParts = open.map(({ key, el }) => ({ key, el }))
       }
       const askToOpen = () => ask(args, targetsOf(args[0]), "make this change")
-      // Whether a label already named the item, so its key isn't keyed again.
-      let named = false
+      // The key of the item a label named, which a number-valued list's value isn't.
+      let named: string | undefined
       // A value by its item's label, like "Germany (Frankfurt)" or an accordion's "Email", so the agent needn't look up the value first.
       const label = typeof args[0] === "string" && fold(args[0])
       if (label) {
@@ -1475,8 +1487,8 @@ function createAgent(
           // search text isn't an item. Data with no items, or a popup that opened
           // and showed none, is a list with none. The first 20 keep the error short.
           if (found.length === 1) {
-            args = [found[0].value, ...args.slice(1)]
-            named = true
+            named = found[0].value
+            args = [numeric ? Number(named) : named, ...args.slice(1)]
           } else if (
             (items.length || data || opens) &&
             closed &&
@@ -1588,9 +1600,10 @@ function createAgent(
           action === "setChecked" ? "checked" : "value"
         ]
         const held = (Array.isArray(value) ? value : [value]).map(key)
-        const chosen = named
-          ? [args[0] as string]
-          : (Array.isArray(args[0]) ? args[0] : [args[0]]).map(key)
+        const chosen =
+          named !== undefined
+            ? [named]
+            : (Array.isArray(args[0]) ? args[0] : [args[0]]).map(key)
         // Options that render only while the list is open are read by opening it, now. Only
         // a choice opens it: a popup's open() takes a payload, not an item.
         if (!whileOpen && (action === "setValue" || action === "select")) {

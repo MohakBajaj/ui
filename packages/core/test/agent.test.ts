@@ -13,6 +13,7 @@ import {
 } from "../src/page/agent/agent"
 import { button } from "../src/components/button/button"
 import { checkbox } from "../src/components/checkbox/checkbox"
+import { collapsible } from "../src/components/collapsible/collapsible"
 import { combobox } from "../src/components/combobox/combobox"
 import { datePicker } from "../src/components/date-picker/date-picker"
 import { dialog } from "../src/components/dialog/dialog"
@@ -636,6 +637,30 @@ describe("agent", () => {
       /^No item "Tokyo" in Region \(c\d+\)\. Its items: Frankfurt, Singapore\.$/
     )
     expect(onValueChange).not.toHaveBeenCalled()
+  })
+
+  test("setValue names an item of a select whose values are numbers by its label", async () => {
+    const agent = createAgent()
+    const instance = select({
+      id: "project",
+      items: [
+        { value: 1, label: "Mobile app" },
+        { value: 2, label: "Website" },
+      ],
+      defaultValue: 1,
+    })
+    const el = document.body.appendChild(document.createElement("button"))
+    el.setAttribute("aria-label", "Project")
+    cleanups.push(bind(instance.part("trigger"), el), () => instance.destroy())
+    const byLabel = await agent.act({
+      steps: [{ ref: "Project", action: "setValue", args: ["Website"] }],
+    })
+    expect(byLabel.ok).toBe(true)
+    expect(instance.get().value).toBe(2)
+    await agent.act({
+      steps: [{ ref: "Project", action: "setValue", args: ["1"] }],
+    })
+    expect(instance.get().value).toBe(1)
   })
 
   function mountCombobox(
@@ -1349,6 +1374,24 @@ describe("agent", () => {
     expect(shown.get().checked).toBe(true)
   })
 
+  test("a component in a popup that's animating out, like a menu after a choice, isn't on the page", async () => {
+    const agent = createAgent()
+    const shown = mountCheckbox({ id: "notes-shown" }, "Release notes")
+    mountCheckbox({ id: "notes-leaving" }, "Release notes")
+    const leaving = document.body.appendChild(document.createElement("div"))
+    leaving.setAttribute("data-ending-style", "")
+    leaving.append(document.body.querySelectorAll("label")[1])
+    expect(
+      agent
+        .snapshot()
+        .filter((component) => component.label === "Release notes")
+    ).toHaveLength(1)
+    await agent.act({
+      steps: [{ ref: "Release notes", action: "setChecked", args: [true] }],
+    })
+    expect(shown.get().checked).toBe(true)
+  })
+
   test("a component inside aria-hidden isn't on the page", () => {
     const agent = createAgent()
     mountCheckbox({ id: "shown" }, "Shown")
@@ -1933,6 +1976,32 @@ describe("agent rows", () => {
     ])
   })
 
+  test("a table's header row adds no row text, so a header button is found by its label", async () => {
+    const agent = createAgent()
+    const table = document.createElement("table")
+    table.innerHTML =
+      "<thead><tr><th><button>Email</button></th><th><button>Status</button></th></tr></thead>" +
+      "<tbody><tr><th>Row</th><td><button>Edit</button></td></tr></tbody>"
+    document.body.append(table)
+    const pressed: string[] = []
+    for (const el of table.querySelectorAll("button")) {
+      const instance = button({ id: el.textContent! })
+      el.addEventListener("click", () => pressed.push(el.textContent!))
+      cleanups.push(bind(instance.part("root"), el), () => instance.destroy())
+    }
+    const rows = Object.fromEntries(
+      agent
+        .snapshot()
+        .filter((component) => !component.offPage)
+        .map((component) => [component.label, component.row])
+    )
+    expect(rows).toEqual({ Email: undefined, Status: undefined, Edit: "Row" })
+    expect(
+      await agent.act({ steps: [{ ref: "Email", action: "press" }] })
+    ).toMatchObject({ ok: true })
+    expect(pressed).toEqual(["Email"])
+  })
+
   test("a component that leaves and comes back, like a tab's, keeps its ref", () => {
     const agent = createAgent()
     const unmount = mountRow("Priya Shah")
@@ -2201,6 +2270,39 @@ describe("agent act", () => {
       /"Jane Doe" names 2 components: c\d+ Admin \(Jane Doe jane@acme\.com\), c\d+ Jane Doe\. Use a ref\. A page tells them apart with a word in one label the other lacks, like a verb or the row's name\./
     )
     expect([jane.get().checked, other.get().checked]).toEqual([false, false])
+  })
+
+  test("an open component whose label only holds the words doesn't beat the exact label", async () => {
+    const agent = createAgent()
+    const el = document.body.appendChild(document.createElement("button"))
+    el.textContent = "System"
+    const pressed = vi.fn()
+    el.addEventListener("click", pressed)
+    const own = button({ id: "system" })
+    const row = collapsible({ id: "tool-call", defaultOpen: true })
+    const root = document.body.appendChild(document.createElement("div"))
+    root.setAttribute("aria-label", "Read live-system.png")
+    const trigger = root.appendChild(document.createElement("button"))
+    trigger.textContent = "read live-system.png"
+    const panel = root.appendChild(
+      Object.assign(document.createElement("div"), {
+        textContent: "image",
+        getAnimations: () => [],
+      })
+    )
+    cleanups.push(
+      bind(own.part("root"), el),
+      bind(row.part("root"), root),
+      bind(row.part("trigger"), trigger),
+      bind(row.part("panel"), panel),
+      () => [own, row].forEach((instance) => instance.destroy())
+    )
+    const outcome = await agent.act({
+      steps: [{ ref: "System", action: "press" }],
+    })
+    expect(outcome.error?.message).toMatch(/"System" names 2 components/)
+    expect(pressed).not.toHaveBeenCalled()
+    expect(row.get().open).toBe(true)
   })
 
   test("a label that matches exactly still wins when nothing else holds its words", async () => {

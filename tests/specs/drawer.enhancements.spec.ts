@@ -60,6 +60,30 @@ test.describe("dialog", { tag: "@enhancement" }, () => {
     await page.getByRole("button", { name: "Cancel" }).click()
     expect((await result).reason).toBe("close-press")
   })
+
+  // Where the browser has a top layer, a popup opened from inside the drawer renders in it.
+  test("focus inside a popup open in its content leaves that popup's scrolling alone", async ({
+    page,
+    open,
+  }) => {
+    await open("drawer")
+    await openDrawer(page)
+    await waitForRest(page)
+    const scrolled = await page.evaluate(async () => {
+      const layer = document.createElement("div")
+      layer.popover = "manual"
+      layer.tabIndex = -1
+      layer.style.cssText =
+        "inset: 0 auto auto 0; height: 200px; overflow: auto"
+      layer.innerHTML = "<p style='height: 1000px'>Rows</p>"
+      document.querySelector('[data-slot="drawer-content"]')!.append(layer)
+      layer.showPopover()
+      layer.focus({ preventScroll: true })
+      await new Promise((resolve) => setTimeout(resolve, 500))
+      return layer.scrollTop
+    })
+    expect(scrolled).toBe(0)
+  })
 })
 
 test.describe("shortcuts", { tag: "@enhancement" }, () => {
@@ -506,6 +530,21 @@ test.describe("scroll-snap driver", { tag: "@enhancement" }, () => {
     expect((await sheetRect(page)).top).toBe(Math.round(height * 0.5))
   })
 
+  test("a swipe up from the handle snaps to the next snap point", async ({
+    page,
+    context,
+  }) => {
+    const box = (await handle(page).boundingBox())!
+    await touchDrag(page, context, {
+      x: box.x + box.width / 2,
+      y: box.y + box.height / 2,
+      dy: -page.viewportSize()!.height * 0.2,
+      steps: 12,
+      hold: 200,
+    })
+    await expect.poll(() => drawerLog(page)).toContain("0.5:swipe")
+  })
+
   test("it comes to rest when the scroll ends before the page hears the finger lift", async ({
     page,
   }) => {
@@ -523,6 +562,42 @@ test.describe("scroll-snap driver", { tag: "@enhancement" }, () => {
       host.dispatchEvent(new Event("touchend"))
     }, height * 0.25)
     await expect.poll(() => drawerLog(page)).toContain("0.5:swipe")
+  })
+
+  test("a swipe down closes it once it leaves the screen", async ({
+    page,
+    context,
+  }) => {
+    const height = page.viewportSize()!.height
+    await drawerDialog(page).evaluate((sheet) => {
+      const record = sheet as HTMLElement & { lowestOpenTop?: number }
+      record.lowestOpenTop = 0
+      const follow = () => {
+        if (!sheet.hasAttribute("data-open")) {
+          return
+        }
+        record.lowestOpenTop = Math.max(
+          record.lowestOpenTop!,
+          sheet.getBoundingClientRect().top
+        )
+        requestAnimationFrame(follow)
+      }
+      requestAnimationFrame(follow)
+    })
+    const sheet = await drawerDialog(page).elementHandle()
+    await touchDrag(page, context, {
+      x: 200,
+      y: height * 0.75 + 10,
+      dy: height * 0.25 - 20,
+      steps: 12,
+    })
+    await expect
+      .poll(() => sheet!.evaluate((el) => el.hasAttribute("data-open")))
+      .toBe(false)
+    const lowestOpenTop = await sheet!.evaluate(
+      (el) => (el as HTMLElement & { lowestOpenTop?: number }).lowestOpenTop!
+    )
+    expect(lowestOpenTop).toBeLessThan(height + 40)
   })
 
   test("the handle moves it with a spring, like the pointer driver", async ({

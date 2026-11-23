@@ -1,5 +1,24 @@
 # @ui-sdk/react
 
+## 0.1.0-beta.16
+
+### Patch Changes
+
+- Updated @ui-sdk/core to 0.1.0-beta.16
+
+## 0.1.0-beta.15
+
+### Patch Changes
+
+- 59628b2: Content you place inside a component of your own keeps its arrow keys when the root's items arrive after it mounts.
+- Updated @ui-sdk/core to 0.1.0-beta.15
+
+## 0.1.0-beta.14
+
+### Patch Changes
+
+- Updated @ui-sdk/core to 0.1.0-beta.14
+
 ## 0.1.0-beta.13
 
 ### Patch Changes
