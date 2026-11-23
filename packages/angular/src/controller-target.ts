@@ -1,4 +1,4 @@
-import { afterRenderEffect, computed, signal } from "@angular/core"
+import { computed, effect, signal } from "@angular/core"
 
 // The component each controller is attached to, read by parts outside it.
 // `version` changes with every registration, so a part that reads a
@@ -22,13 +22,13 @@ function useControllerTarget<T>(
   })
 }
 
-// Registers a popup with its controller after it renders. The server never
-// does, so a trigger outside hydrates as the plain button the server rendered.
+// Registers a popup with its controller, on the server too, so a trigger
+// outside is in the server's HTML with its id and ARIA.
 function useControllerEntry(
   controller: () => object | undefined,
   value: unknown
 ) {
-  afterRenderEffect((onCleanup) => {
+  effect((onCleanup) => {
     const current = controller()
     if (!current) {
       return

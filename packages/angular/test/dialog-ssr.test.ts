@@ -108,11 +108,11 @@ describe("server rendering a dialog", () => {
     expect(tagWith(html, "Open")).toContain('aria-haspopup="dialog"')
   })
 
-  test("a trigger outside its dialog renders as a plain button", async () => {
+  test("a trigger outside its dialog is connected to it", async () => {
     const trigger = tagWith(await render(Outside), "Edit")
     expect(trigger).toContain('type="button"')
     expect(trigger).toContain('disabled=""')
-    expect(trigger).not.toContain("aria-haspopup")
+    expect(trigger).toContain('aria-haspopup="dialog"')
   })
 
   test("an open alert dialog renders as an alertdialog", async () => {
