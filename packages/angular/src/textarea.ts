@@ -98,6 +98,13 @@ class Textarea {
 export { createInputController } from "@ui-sdk/core/input"
 export type {
   InputController,
+  InputGroupOptions,
+  InputGroupPrimitive,
+  InputGroupState,
+  InputOptions,
+  InputPrimitive,
+  InputProps,
+  InputState,
   InputValueChangeReason,
   TextareaOptions,
   TextareaPrimitive,
