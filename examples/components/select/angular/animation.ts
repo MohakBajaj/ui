@@ -42,7 +42,7 @@ import {
           @for (role of roles; track role.value) {
             <div uiSelectItem [value]="role.value">
               {{ role.label }}
-              <span *uiSelectItemIndicator="{ keepMounted: true }">
+              <span uiSelectItemIndicator keepMounted>
                 <svg lucideCheck></svg>
               </span>
             </div>

@@ -36,13 +36,13 @@ import {
         <div uiMenuGroup>
           <div uiMenuGroupLabel>Appearance</div>
           <div uiMenuCheckboxItem value="status-bar" defaultChecked>
-            <span *uiMenuItemIndicator="{ keepMounted: true }">
+            <span uiMenuItemIndicator keepMounted>
               <svg lucideCheck></svg>
             </span>
             Status bar
           </div>
           <div uiMenuCheckboxItem value="minimap">
-            <span *uiMenuItemIndicator="{ keepMounted: true }">
+            <span uiMenuItemIndicator keepMounted>
               <svg lucideCheck></svg>
             </span>
             Minimap
@@ -50,13 +50,13 @@ import {
         </div>
         <div uiMenuSeparator></div>
         <div uiMenuCheckboxItem value="line-numbers" defaultChecked>
-          <span *uiMenuItemIndicator="{ keepMounted: true }">
+          <span uiMenuItemIndicator keepMounted>
             <svg lucideCheck></svg>
           </span>
           Line numbers
         </div>
         <div uiMenuCheckboxItem value="word-wrap">
-          <span *uiMenuItemIndicator="{ keepMounted: true }">
+          <span uiMenuItemIndicator keepMounted>
             <svg lucideCheck></svg>
           </span>
           Word wrap

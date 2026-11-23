@@ -656,7 +656,7 @@ class MenuRadioItem {
   exportAs: "uiMenuItemIndicator",
 })
 class MenuItemIndicator {
-  /** Whether the `*` form keeps the indicator in the page while its item is unchecked, so it can be styled or animated in both states. */
+  /** Whether the indicator stays in the page while its item is unchecked, so it can be styled or animated in both states. */
   readonly keepMounted = input(undefined, { transform: optionalBoolean })
 
   readonly #menu = inject(MenuScope).handle

@@ -53,7 +53,7 @@ import {
               [label]="framework.label"
             >
               {{ framework.label }}
-              <span *uiComboboxItemIndicator="{ keepMounted: true }">
+              <span uiComboboxItemIndicator keepMounted>
                 <svg lucideCheck></svg>
               </span>
             </div>
