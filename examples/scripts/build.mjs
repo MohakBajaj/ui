@@ -1,10 +1,11 @@
 // Builds the examples the docs load and their stylesheets, or the ones named:
 // `node scripts/build.mjs react styles`. Each framework but web is also
 // rendered to HTML in Node, which the docs show until an example mounts.
+import { execFileSync } from "node:child_process"
 import { writeFile } from "node:fs/promises"
 import { build } from "vite"
 
-const all = ["react", "vue", "svelte", "solid", "web", "styles"]
+const all = ["react", "vue", "svelte", "solid", "web", "angular", "styles"]
 const named = process.argv.slice(2)
 const unknown = named.filter((framework) => !all.includes(framework))
 if (unknown.length) {
@@ -12,6 +13,12 @@ if (unknown.length) {
 }
 
 const root = new URL("..", import.meta.url).pathname
+if (named.length === 0 || named.includes("angular")) {
+  execFileSync("npx", ["ngc", "-p", "tsconfig.angular.json"], {
+    cwd: root,
+    stdio: "inherit",
+  })
+}
 await Promise.all(
   (named.length ? named : all).map(async (mode) => {
     await build({ root, mode, logLevel: "warn" })

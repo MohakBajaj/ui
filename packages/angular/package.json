@@ -385,7 +385,10 @@
     }
   },
   "scripts": {
-    "prepack": "cp ../../LICENSE LICENSE"
+    "build": "node ../../scripts/build/build-angular-package.mjs",
+    "prepack": "cp ../../LICENSE LICENSE",
+    "typecheck": "ngc -p tsconfig.test.json --noEmit",
+    "test": "ngc -p tsconfig.test.json && vitest run"
   },
   "peerDependencies": {
     "@angular/core": "^21.0.0 || ^22.0.0",
@@ -394,6 +397,7 @@
   "devDependencies": {
     "@angular/common": "^21.2.26",
     "@angular/compiler": "^21.2.26",
+    "@angular/compiler-cli": "^21.2.26",
     "@angular/core": "^21.2.26",
     "@angular/platform-browser": "^21.2.26",
     "@angular/platform-server": "^21.2.26",
