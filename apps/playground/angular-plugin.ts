@@ -2,6 +2,13 @@ import { existsSync, readFileSync } from "node:fs"
 import path from "node:path"
 import type { Plugin } from "vite"
 
+type Babel = {
+  transformAsync: (
+    code: string,
+    options: object
+  ) => Promise<{ code?: string | null } | null>
+}
+
 // The Angular fixtures and adapter run as Angular's compiler wrote them, which
 // the `dev` and `build` scripts do first, into node_modules/.angular. Angular's
 // own packages ship partly compiled, so its linker finishes them.
@@ -31,7 +38,8 @@ function compiledAngular(): Plugin {
         return
       }
       const [{ transformAsync }, { default: linker }] = await Promise.all([
-        import("@babel/core"),
+        // Babel comes with Angular's linker and ships no types.
+        import("@babel/core" as string) as Promise<Babel>,
         import("@angular/compiler-cli/linker/babel"),
       ])
       const result = await transformAsync(code, {
