@@ -317,6 +317,9 @@ class NavigationMenuViewport {
   readonly anchor: InputSignal<NavigationMenuViewportProps["anchor"]> = input()
   /** Renders the viewport into this element instead of in place. */
   readonly container = input<PopupContainer>()
+  /** The inputs as one object, for the `*` form, which leaves other attributes on the element inside: `*uiNavigationMenuViewport="{ sideOffset: 8 }"`. */
+  readonly uiNavigationMenuViewport: StarInput<NavigationMenuViewportProps> =
+    input(undefined, { transform: starInputs<NavigationMenuViewportProps> })
 
   readonly #menu = inject(NavigationMenu)
   readonly #around = inject(PopupScope, { optional: true })
@@ -324,18 +327,22 @@ class NavigationMenuViewport {
   readonly state = usePart(
     this.#menu.handle,
     "viewport",
-    () => ({
-      side: this.side(),
-      align: this.align(),
-      sideOffset: this.sideOffset(),
-      alignOffset: this.alignOffset(),
-      collisionPadding: this.collisionPadding(),
-      arrowPadding: this.arrowPadding(),
-      anchor: this.anchor(),
-    }),
+    () =>
+      withStar(this.uiNavigationMenuViewport(), {
+        side: this.side(),
+        align: this.align(),
+        sideOffset: this.sideOffset(),
+        alignOffset: this.alignOffset(),
+        collisionPadding: this.collisionPadding(),
+        arrowPadding: this.arrowPadding(),
+        anchor: this.anchor(),
+      }),
     {
       portal: () =>
-        this.container() ?? this.#menu.container() ?? this.#around?.container(),
+        this.container() ??
+        this.uiNavigationMenuViewport()?.container ??
+        this.#menu.container() ??
+        this.#around?.container(),
     }
   ).state
 }
