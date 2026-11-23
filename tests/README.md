@@ -20,7 +20,7 @@ PLAYGROUND_PORT=5310 ../scripts/test-slot.sh npx playwright test --project react
 
 A file filter is a regular expression matched against the path, so `specs/menu` runs `menu.a11y.spec.ts`, `menu.counts.spec.ts` and `menubar.spec.ts` too. Name the whole file, like `specs/menu.spec.ts`, for the base spec only. `pnpm test` from the root runs `playwright test` in `tests/` with every project, which is the whole matrix: pass `--project` to narrow it.
 
-Angular's fixtures (`apps/playground/src/fixtures/<name>/angular.ts`) run in the `angular`, `angular-data` and `angular-sheet` projects. The playground's `dev` and `build` scripts compile them and the Angular adapter first, with Angular's compiler, into `apps/playground/node_modules/.angular`, and Vite serves that output. Restart the dev server after you change either. There are no `angular-ssr` fixtures yet.
+Angular's fixtures (`apps/playground/src/fixtures/<name>/angular.ts`) run in the `angular`, `angular-data`, `angular-sheet` and `angular-ssr` projects. The playground's `dev` and `build` scripts compile them and the Angular adapter first, with Angular's compiler, into `apps/playground/node_modules/.angular`, and Vite serves that output. Restart the dev server after you change either.
 
 ## At a glance
 
@@ -159,7 +159,7 @@ cd tests && PLAYGROUND_PORT=5310 ../scripts/test-slot.sh npx playwright test spe
 
 ### Server rendering
 
-`<name>.ssr.spec.ts`. The `-ssr` fixtures render to a string, then hydrate, and record every hydration mismatch on `window.__hydrationErrors`. The Vue, Svelte and Solid ones get their string from the playground's `/__ssr` route, which renders them in Node. Vue checks text when it hydrates, so in `vue-ssr` text that Node's ICU writes differently from the browser's shows up as a mismatch. The specs check there are none, closed and open, and that the hydrated component behaves. `specsThatSkip` leaves them out of every project whose framework doesn't end in `-ssr`, so they run in `react-ssr`, `vue-ssr`, `svelte-ssr` and `solid-ssr` only, which CI runs from the `main` tier. Web components have no server rendering. `controller-shortcuts.ssr.spec.ts` covers controllers and shortcuts across components.
+`<name>.ssr.spec.ts`. The `-ssr` fixtures render to a string, then hydrate, and record every hydration mismatch on `window.__hydrationErrors`. The Vue, Svelte, Solid and Angular ones get their string from the playground's `/__ssr` route, which renders them in Node. Vue checks text when it hydrates, so in `vue-ssr` text that Node's ICU writes differently from the browser's shows up as a mismatch. The specs check there are none, closed and open, and that the hydrated component behaves. `specsThatSkip` leaves them out of every project whose framework doesn't end in `-ssr`, so they run in `react-ssr`, `vue-ssr`, `svelte-ssr`, `solid-ssr` and `angular-ssr` only, which CI runs from the `main` tier. Web components have no server rendering. `controller-shortcuts.ssr.spec.ts` covers controllers and shortcuts across components.
 
 ```bash
 cd tests && PLAYGROUND_PORT=5310 ../scripts/test-slot.sh npx playwright test specs/menu.ssr --project react-ssr --project vue-ssr

@@ -1,5 +1,11 @@
 import { NgTemplateOutlet } from "@angular/common"
-import { Component, computed, DestroyRef, inject } from "@angular/core"
+import {
+  afterNextRender,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+} from "@angular/core"
 import {
   createListboxController,
   Listbox,
@@ -153,8 +159,12 @@ class Fixture {
   readonly submitted = state("")
 
   constructor() {
-    inject(DestroyRef).onDestroy(
-      onItemsChange(changedToppings, (items) => this.list.set(items))
+    const destroyRef = inject(DestroyRef)
+    // In the browser only: the server has no document.
+    afterNextRender(() =>
+      destroyRef.onDestroy(
+        onItemsChange(changedToppings, (items) => this.list.set(items))
+      )
     )
   }
 

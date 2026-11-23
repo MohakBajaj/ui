@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/fixtures/*/angular*.ts"],
+  "include": ["src/fixtures/*/angular*.ts", "src/ssr/angular*.ts"],
   "compilerOptions": {
     "noEmit": false,
     "rewriteRelativeImportExtensions": true,

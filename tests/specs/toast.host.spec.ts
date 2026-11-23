@@ -23,7 +23,7 @@ test.describe("the overlay host", { tag: "@enhancement" }, () => {
     const toast = region(page).getByRole(role(), { name: basic.title })
     await expect(toast).toHaveAccessibleDescription(basic.description)
     // Angular's host renders its own toast markup. A placed region renders yours.
-    if (framework !== "angular") {
+    if (!framework.startsWith("angular")) {
       await expect(toast).toHaveClass(/toast/)
     }
     await toast.getByRole("button", { name: basic.action }).click()

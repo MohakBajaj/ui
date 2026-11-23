@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { afterNextRender, Component } from "@angular/core"
 import {
   Menu,
   MenuCheckboxItem,
@@ -166,7 +166,8 @@ class Fixture {
   readonly action = state("")
 
   constructor() {
-    Object.assign(window, { __menubar: this.controller })
+    // In the browser only: the server has no window.
+    afterNextRender(() => Object.assign(window, { __menubar: this.controller }))
   }
 
   onCheckedChange({ value, checked }: MenuCheckedChange) {

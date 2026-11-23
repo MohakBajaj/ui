@@ -1,5 +1,12 @@
 import { NgTemplateOutlet } from "@angular/common"
-import { Component, computed, DestroyRef, inject, input } from "@angular/core"
+import {
+  afterNextRender,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  input,
+} from "@angular/core"
 import { useAsyncOptions } from "@ui-sdk/angular/async-options"
 import {
   Autocomplete,
@@ -225,8 +232,12 @@ class Fixture {
   readonly submitted = state("")
 
   constructor() {
-    inject(DestroyRef).onDestroy(
-      onItemsChange(changedItems, (items) => this.list.set(items))
+    const destroyRef = inject(DestroyRef)
+    // In the browser only: the server has no document.
+    afterNextRender(() =>
+      destroyRef.onDestroy(
+        onItemsChange(changedItems, (items) => this.list.set(items))
+      )
     )
   }
 

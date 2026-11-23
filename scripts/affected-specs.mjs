@@ -67,7 +67,7 @@ const engineProjects = ["web-webkit", "web-firefox"]
 /** A framework's Chromium projects, as tests/playwright.config.ts names them. */
 function chromiumProjects(framework) {
   const projects = [framework, `${framework}-data`, `${framework}-sheet`]
-  if (framework !== "web" && framework !== "angular") {
+  if (framework !== "web") {
     projects.push(`${framework}-ssr`)
   }
   if (framework === "react") {

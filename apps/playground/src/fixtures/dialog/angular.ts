@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { afterNextRender, Component } from "@angular/core"
 import {
   AlertDialog,
   AlertDialogBackdrop,
@@ -177,7 +177,8 @@ class Fixture {
     recordOpenChange(name, change.value, change)
 
   constructor() {
-    exposeDialogFixture(this.controller, this.confirm)
+    // In the browser only: the server has no window.
+    afterNextRender(() => exposeDialogFixture(this.controller, this.confirm))
   }
 
   onOpenChange(change: DialogOpenChange) {

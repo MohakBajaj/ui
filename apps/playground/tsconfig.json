@@ -5,6 +5,7 @@
     "src/fixtures/*/solid*.tsx",
     "src/fixtures/*/angular*.ts",
     "src/angular-mount.ts",
+    "src/ssr/angular*.ts",
     "src/ssr/solid.ts",
     "src/ssr/hydrate.ts",
     "solid-ssr.ts"

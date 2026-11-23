@@ -41,9 +41,8 @@ import { mountAngular, state } from "../../angular-mount"
               class="tab"
               [value]="tab.value"
               [disabled]="tab.disabled"
-            >
-              {{ tab.label }}
-            </button>
+              [textContent]="tab.label"
+            ></button>
           }
           <span uiTabsIndicator class="indicator"></span>
         </div>

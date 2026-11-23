@@ -26,7 +26,7 @@ Everything you need to work on ui-sdk, for people and agents alike. Start with t
 
 ## Where things stand
 
-Every component in `packages/core/src/components/` ships in six frameworks: React, Vue, Svelte 5, Solid 2, web components and Angular. Each has specs, docs and examples in every framework, and a kitchen sink in React, Vue and web components. Angular has no `-ssr` fixtures yet. Finishing what exists comes before new components.
+Every component in `packages/core/src/components/` ships in six frameworks: React, Vue, Svelte 5, Solid 2, web components and Angular. Each has specs, docs and examples in every framework, and a kitchen sink in React, Vue and web components. Finishing what exists comes before new components.
 
 ## How we work
 

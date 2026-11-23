@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { afterNextRender, Component } from "@angular/core"
 import {
   createDrawerController,
   Drawer,
@@ -156,7 +156,8 @@ class Fixture {
   readonly more = state(false)
 
   constructor() {
-    exposeDrawerFixture(this.controller)
+    // In the browser only: the server has no window.
+    afterNextRender(() => exposeDrawerFixture(this.controller))
   }
 
   record(what: unknown, reason: string) {
