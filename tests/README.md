@@ -20,7 +20,7 @@ PLAYGROUND_PORT=5310 ../scripts/test-slot.sh npx playwright test --project react
 
 A file filter is a regular expression matched against the path, so `specs/menu` runs `menu.a11y.spec.ts`, `menu.counts.spec.ts` and `menubar.spec.ts` too. Name the whole file, like `specs/menu.spec.ts`, for the base spec only. `pnpm test` from the root runs `playwright test` in `tests/` with every project, which is the whole matrix: pass `--project` to narrow it.
 
-Angular's fixtures (`apps/playground/src/fixtures/<name>/angular.ts`) cover the same specs. They need the Angular compiler, which the playground doesn't build with yet, so it leaves them out and there is no `angular` project.
+Angular's fixtures (`apps/playground/src/fixtures/<name>/angular.ts`) run in the `angular`, `angular-data` and `angular-sheet` projects. The playground's `dev` and `build` scripts compile them and the Angular adapter first, with Angular's compiler, into `apps/playground/node_modules/.angular`, and Vite serves that output. Restart the dev server after you change either. There are no `angular-ssr` fixtures yet.
 
 ## At a glance
 
@@ -70,7 +70,7 @@ From `.github/workflows`:
 | `affected`         | Pull requests and pushes to `main`                | The specs the changes can affect, from `pnpm test:pr`, on 1 to 12 runners                      | Typecheck, perf docs, unit tests             |
 | `affected-engines` | Pushes to a pull request with the `engines` label | `affected`, plus `web-webkit` and `web-firefox` for the touched specs                          | Typecheck, perf docs, unit tests             |
 | `engines`          | Adding the `engines` label to a pull request      | `*-webkit`, `*-firefox`                                                                        | Docs tests                                   |
-| `main`             | Run workflow                                      | Every Chromium project: the 5 frameworks, `*-data`, `*-ssr`, `*-portal`, `*-sheet` (10 shards) | Typecheck, perf docs, unit tests             |
+| `main`             | Run workflow                                      | Every Chromium project: the 6 frameworks, `*-data`, `*-ssr`, `*-portal`, `*-sheet` (10 shards) | Typecheck, perf docs, unit tests             |
 | `nightly`          | 03:00 UTC Monday to Saturday, when main changed   | `*-webkit`, `*-firefox`                                                                        |                                              |
 | `full`             | Sundays from `weekly.yml`, and Run workflow       | Everything above                                                                               | Typecheck, perf docs, unit tests, docs tests |
 
@@ -285,7 +285,7 @@ pnpm docs:perf --check
 
 ## Coverage
 
-`scripts/check-coverage.mjs`, part of `pnpm lint`, checks that every component in `packages/core/src/components` has a base, `a11y`, `rtl` and `ssr` spec, fixtures in all five frameworks, an entry in the leaks fixture, a core unit test, a docs page for every framework and a docs spec. A component without one lists it in `tests/coverage-exemptions.json` with a reason, or `todo` for coverage still to write. An exemption for something the component now has fails, so remove it in the same change that adds the coverage.
+`scripts/check-coverage.mjs`, part of `pnpm lint`, checks that every component in `packages/core/src/components` has a base, `a11y`, `rtl` and `ssr` spec, fixtures in all six frameworks, an entry in the leaks fixture, a core unit test, a docs page for every framework and a docs spec. A component without one lists it in `tests/coverage-exemptions.json` with a reason, or `todo` for coverage still to write. An exemption for something the component now has fails, so remove it in the same change that adds the coverage.
 
 ```bash
 node scripts/check-coverage.mjs          # Check.
