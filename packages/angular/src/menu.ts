@@ -44,15 +44,15 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
-import { MenubarContext } from "./menubar-context"
+} from "./inputs.ts"
+import { MenubarContext } from "./menubar-context.ts"
 import {
   emitChange,
   EventActionEmitter,
   ValueActionEmitter,
   type Change,
   type Waiting,
-} from "./outputs"
+} from "./outputs.ts"
 import {
   plainButton,
   PopupRoot,
@@ -60,15 +60,15 @@ import {
   usePopupContent,
   usePopupRoot,
   usePopupTrigger,
-} from "./popup"
-import { useText } from "./text"
+} from "./popup.ts"
+import { useText } from "./text.ts"
 import {
   useFeature,
   useId,
   usePart,
   usePrimitive,
   type PopupContainer,
-} from "./use-primitive"
+} from "./use-primitive.ts"
 
 /**
  * What `(beforeOpenChange)` emits: whether the menu is about to open, why,

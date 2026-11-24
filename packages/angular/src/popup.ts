@@ -1,8 +1,8 @@
 import { computed, inject, Injectable, type Type } from "@angular/core"
 import type { Attrs, Primitive, PropsOf, SlotName } from "@ui-sdk/core"
 import type { Feature } from "@ui-sdk/core/renderer"
-import { useControllerEntry, useControllerTarget } from "./controller-target"
-import { useText } from "./text"
+import { useControllerEntry, useControllerTarget } from "./controller-target.ts"
+import { useText } from "./text.ts"
 import {
   useFeature,
   useOutsidePart,
@@ -10,7 +10,7 @@ import {
   type Joined,
   type PopupContainer,
   type PrimitiveHandle,
-} from "./use-primitive"
+} from "./use-primitive.ts"
 
 // What a popup's root hands its parts. Each popup has its own class of it,
 // so a tooltip's trigger inside a popover finds the tooltip.
@@ -195,7 +195,7 @@ function usePopupShortcut<P extends Primitive>(
   return state
 }
 
-export { useControllerEntry, useControllerTarget } from "./controller-target"
+export { useControllerEntry, useControllerTarget } from "./controller-target.ts"
 
 export {
   plainButton,

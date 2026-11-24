@@ -11,7 +11,7 @@ import {
   type EmbeddedViewRef,
 } from "@angular/core"
 import type { toastRegion } from "@ui-sdk/core/toast"
-import { usePart, type PrimitiveHandle } from "./use-primitive"
+import { usePart, type PrimitiveHandle } from "./use-primitive.ts"
 
 /**
  * What toasts can say in Angular: text, or a template.

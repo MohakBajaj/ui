@@ -11,11 +11,11 @@ import type {
   DialogDismissAttemptDetails,
   DialogOpenChangeDetails,
 } from "@ui-sdk/core/dialog"
-import { DialogScope } from "./dialog-parts"
-import { optionalBoolean } from "./inputs"
-import { emitChange, type Change } from "./outputs"
-import { usePopupRoot } from "./popup"
-import { usePrimitive, type PopupContainer } from "./use-primitive"
+import { DialogScope } from "./dialog-parts.ts"
+import { optionalBoolean } from "./inputs.ts"
+import { emitChange, type Change } from "./outputs.ts"
+import { usePopupRoot } from "./popup.ts"
+import { usePrimitive, type PopupContainer } from "./use-primitive.ts"
 
 /**
  * What `(beforeOpenChange)` emits: whether the alert dialog is about to open,
@@ -144,7 +144,7 @@ export {
   DialogShortcut as AlertDialogShortcut,
   DialogTitle as AlertDialogTitle,
   DialogTrigger as AlertDialogTrigger,
-} from "./dialog-parts"
+} from "./dialog-parts.ts"
 
 export {
   AlertDialog,

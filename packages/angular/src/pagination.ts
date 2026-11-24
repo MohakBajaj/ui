@@ -7,10 +7,10 @@ import {
   type InputSignal,
 } from "@angular/core"
 import { pagination, type PaginationOptions } from "@ui-sdk/core/pagination"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { useText } from "./text"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useText } from "./text.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforePageChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

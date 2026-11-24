@@ -4,11 +4,11 @@ import {
   type TextareaOptions,
   type TextareaSubmitDetails,
 } from "@ui-sdk/core/input"
-import { useFieldControl } from "./field-context"
-import { optionalBoolean } from "./inputs"
-import { emitChange, ListenedEmitter } from "./outputs"
-import { useTextControl } from "./text-control"
-import { usePart, usePrimitive } from "./use-primitive"
+import { useFieldControl } from "./field-context.ts"
+import { optionalBoolean } from "./inputs.ts"
+import { emitChange, ListenedEmitter } from "./outputs.ts"
+import { useTextControl } from "./text-control.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the text about to be set, why, and `cancel()` to keep the current one.

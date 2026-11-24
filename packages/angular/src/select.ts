@@ -29,10 +29,10 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { useFormInputs, useOwedFormInputs } from "./native-input"
+} from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { useFormInputs, useOwedFormInputs } from "./native-input.ts"
 import {
   plainButton,
   PopupRoot,
@@ -42,7 +42,7 @@ import {
   usePopupRoot,
   usePopupTrigger,
   useTriggerPart,
-} from "./popup"
+} from "./popup.ts"
 import {
   useFeature,
   useId,
@@ -50,15 +50,15 @@ import {
   usePrimitive,
   useStore,
   type PopupContainer,
-} from "./use-primitive"
+} from "./use-primitive.ts"
 import { HostAttributeToken } from "@angular/core"
 import {
   selectAllKey,
   selectItemIcons,
   selectSelectAll,
 } from "@ui-sdk/core/renderer"
-import { listEntry, useEmptyMessage, useMarkedText } from "./list-context"
-import { useText } from "./text"
+import { listEntry, useEmptyMessage, useMarkedText } from "./list-context.ts"
+import { useText } from "./text.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

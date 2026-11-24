@@ -1,7 +1,7 @@
 import { Directive, inject, InjectionToken, input } from "@angular/core"
 import type { rating } from "@ui-sdk/core/rating"
-import { useNativeInput } from "./native-input"
-import { usePart, type PrimitiveHandle } from "./use-primitive"
+import { useNativeInput } from "./native-input.ts"
+import { usePart, type PrimitiveHandle } from "./use-primitive.ts"
 
 const RatingHandle = new InjectionToken<PrimitiveHandle<typeof rating>>(
   "ui-sdk rating"

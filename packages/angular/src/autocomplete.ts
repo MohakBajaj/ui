@@ -24,18 +24,23 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { PopupRoot, PopupScope, usePopupContent, usePopupRoot } from "./popup"
+} from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import {
+  PopupRoot,
+  PopupScope,
+  usePopupContent,
+  usePopupRoot,
+} from "./popup.ts"
 import {
   useId,
   usePart,
   usePrimitive,
   useStore,
   type PopupContainer,
-} from "./use-primitive"
-import { listEntry, useEmptyMessage, useMarkedText } from "./list-context"
+} from "./use-primitive.ts"
+import { listEntry, useEmptyMessage, useMarkedText } from "./list-context.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

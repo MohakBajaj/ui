@@ -27,18 +27,18 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
+} from "./inputs.ts"
 import {
   emitChange,
   EventActionEmitter,
   ValueActionEmitter,
   type Waiting,
-} from "./outputs"
-import { PopupRoot, usePopupRoot } from "./popup"
-import { useId, usePart, usePrimitive, useStore } from "./use-primitive"
+} from "./outputs.ts"
+import { PopupRoot, usePopupRoot } from "./popup.ts"
+import { useId, usePart, usePrimitive, useStore } from "./use-primitive.ts"
 import { present as isPresent } from "@ui-sdk/core/renderer"
-import { listEntry, useEmptyMessage, useMarkedText } from "./list-context"
-import { useText } from "./text"
+import { listEntry, useEmptyMessage, useMarkedText } from "./list-context.ts"
+import { useText } from "./text.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

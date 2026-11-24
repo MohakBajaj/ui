@@ -4,9 +4,9 @@ import {
   type TabsController,
   type TabsValueChangeReason,
 } from "@ui-sdk/core/tabs"
-import { optionalBoolean } from "./inputs"
-import { emitChange, type Change } from "./outputs"
-import { useId, usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { emitChange, type Change } from "./outputs.ts"
+import { useId, usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value the tabs are about to take, why,

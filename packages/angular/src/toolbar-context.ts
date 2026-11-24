@@ -1,6 +1,6 @@
 import { inject, InjectionToken } from "@angular/core"
 import type { toolbar } from "@ui-sdk/core/toolbar"
-import type { PrimitiveHandle } from "./use-primitive"
+import type { PrimitiveHandle } from "./use-primitive.ts"
 
 // The toolbar's tokens, apart from the toolbar, so a toggle or a toggle group
 // can join one without bundling it.

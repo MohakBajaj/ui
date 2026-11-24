@@ -21,16 +21,16 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
-import { emitChange } from "./outputs"
+} from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
 import {
   PopupRoot,
   PopupScope,
   usePopupContent,
   usePopupRoot,
   usePopupTrigger,
-} from "./popup"
-import { usePart, usePrimitive, type PopupContainer } from "./use-primitive"
+} from "./popup.ts"
+import { usePart, usePrimitive, type PopupContainer } from "./use-primitive.ts"
 
 /**
  * What `(beforeOpenChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

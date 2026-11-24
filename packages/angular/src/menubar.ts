@@ -1,8 +1,8 @@
 import { Directive, inject, input, type InputSignal } from "@angular/core"
 import { menubar, type MenubarOptions } from "@ui-sdk/core/menubar"
-import { optionalBoolean } from "./inputs"
-import { MenubarContext } from "./menubar-context"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { MenubarContext } from "./menubar-context.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * A row of menus, like a desktop app's: one tab stop, arrow keys between the triggers and between open menus. Each `uiMenu` inside joins it.

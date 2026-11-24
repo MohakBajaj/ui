@@ -11,10 +11,10 @@ import {
   type ToggleGroupOptions,
   type ToggleOptions,
 } from "@ui-sdk/core/toggle"
-import { optionalBoolean } from "./inputs"
-import { emitChange } from "./outputs"
-import { useToolbarScope } from "./toolbar-context"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useToolbarScope } from "./toolbar-context.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforePressedChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

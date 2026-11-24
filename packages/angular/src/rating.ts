@@ -13,11 +13,11 @@ import {
   ratingItemValues,
   type RatingOptions,
 } from "@ui-sdk/core/rating"
-import { nullableNumber, optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { RatingHandle, RatingRadio } from "./rating-context"
-import { usePart, usePrimitive } from "./use-primitive"
+import { nullableNumber, optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { RatingHandle, RatingRadio } from "./rating-context.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

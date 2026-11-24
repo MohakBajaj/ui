@@ -16,7 +16,7 @@ import {
   usePart,
   type Joined,
   type PrimitiveHandle,
-} from "./use-primitive"
+} from "./use-primitive.ts"
 
 const NativeInputPart = new InjectionToken<() => void>("ui-sdk native input")
 

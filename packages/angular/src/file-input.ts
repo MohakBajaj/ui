@@ -12,12 +12,12 @@ import {
   type FileInputItemProps,
   type FileInputOptions,
 } from "@ui-sdk/core/file-input"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { useNativeInput } from "./native-input"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { useNativeInput } from "./native-input.ts"
 import { fileKey } from "@ui-sdk/core/renderer"
-import { useId, usePart, usePrimitive } from "./use-primitive"
+import { useId, usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

@@ -3,7 +3,7 @@
   "include": ["*/angular/*.ts", "components/*/angular/*.ts"],
   "compilerOptions": {
     "noEmit": false,
-    "allowImportingTsExtensions": false,
+    "rewriteRelativeImportExtensions": true,
     "noUnusedLocals": false,
     "rootDir": "..",
     "outDir": "node_modules/.angular",

@@ -30,11 +30,16 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { useFormInputs, useOwedFormInputs } from "./native-input"
-import { PopupRoot, PopupScope, usePopupContent, usePopupRoot } from "./popup"
+} from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { useFormInputs, useOwedFormInputs } from "./native-input.ts"
+import {
+  PopupRoot,
+  PopupScope,
+  usePopupContent,
+  usePopupRoot,
+} from "./popup.ts"
 import {
   useFeature,
   useId,
@@ -42,7 +47,7 @@ import {
   usePrimitive,
   useStore,
   type PopupContainer,
-} from "./use-primitive"
+} from "./use-primitive.ts"
 import {
   comboboxChips,
   comboboxCreate,
@@ -50,9 +55,9 @@ import {
   comboboxSelectAll,
   selectAllKey,
 } from "@ui-sdk/core/renderer"
-import { listEntry, useEmptyMessage, useMarkedText } from "./list-context"
-import { emitWaiting, ListenedEmitter, type Waiting } from "./outputs"
-import { useText } from "./text"
+import { listEntry, useEmptyMessage, useMarkedText } from "./list-context.ts"
+import { emitWaiting, ListenedEmitter, type Waiting } from "./outputs.ts"
+import { useText } from "./text.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

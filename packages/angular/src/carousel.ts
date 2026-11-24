@@ -17,15 +17,20 @@ import {
   type CarouselPlayToggleState,
   type CarouselPreviousState,
 } from "@ui-sdk/core/carousel"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
 import {
   PopupRoot,
   PopupTriggerScope,
   usePopupRoot,
   usePopupTrigger,
-} from "./popup"
-import { useId, useOutsidePart, usePart, usePrimitive } from "./use-primitive"
+} from "./popup.ts"
+import {
+  useId,
+  useOutsidePart,
+  usePart,
+  usePrimitive,
+} from "./use-primitive.ts"
 
 /**
  * What `(beforePageChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

@@ -6,9 +6,9 @@ import {
   type InputSignal,
 } from "@angular/core"
 import { meter, type MeterOptions } from "@ui-sdk/core/meter"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { useText } from "./text"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { useText } from "./text.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * The root, which is the meter.

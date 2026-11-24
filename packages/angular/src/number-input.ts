@@ -12,12 +12,12 @@ import {
   type NumberInputScrubAreaProps,
   type NumberInputState,
 } from "@ui-sdk/core/number-input"
-import { useControllerEntry, useControllerTarget } from "./controller-target"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { useNativeInput } from "./native-input"
-import { useOutsidePart, usePart, usePrimitive } from "./use-primitive"
+import { useControllerEntry, useControllerTarget } from "./controller-target.ts"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { useNativeInput } from "./native-input.ts"
+import { useOutsidePart, usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

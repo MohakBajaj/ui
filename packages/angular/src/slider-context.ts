@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, InjectionToken } from "@angular/core"
 import type { slider } from "@ui-sdk/core/slider"
-import { useFieldControl } from "./field-context"
-import { bindAttributes } from "./text"
-import { usePart, type PrimitiveHandle } from "./use-primitive"
+import { useFieldControl } from "./field-context.ts"
+import { bindAttributes } from "./text.ts"
+import { usePart, type PrimitiveHandle } from "./use-primitive.ts"
 
 type SliderThumbScope = {
   handle: PrimitiveHandle<typeof slider>

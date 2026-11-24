@@ -27,10 +27,10 @@ import {
   FieldDescribed,
   FieldSetContext,
   type FieldScope,
-} from "./field-context"
-import { optionalBoolean } from "./inputs"
-import { useText } from "./text"
-import { useId, usePart, usePrimitive } from "./use-primitive"
+} from "./field-context.ts"
+import { optionalBoolean } from "./inputs.ts"
+import { useText } from "./text.ts"
+import { useId, usePart, usePrimitive } from "./use-primitive.ts"
 
 // A part outside any field is a plain element with the attributes its styles
 // select on, so a FieldLabel is a native <label> for the control it wraps.
@@ -234,7 +234,7 @@ class FieldLegend {
   readonly state = usePart(inject(FieldSetContext), "legend").state
 }
 
-export { useFieldControl } from "./field-context"
+export { useFieldControl } from "./field-context.ts"
 export type {
   FieldApi,
   FieldDescriptionState,

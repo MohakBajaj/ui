@@ -12,12 +12,12 @@ import {
   type TimeInputOptions,
   type TimeInputSegmentProps,
 } from "@ui-sdk/core/time-input"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { useNativeInput } from "./native-input"
-import { useText } from "./text"
-import { usePart, usePrimitive, type PrimitiveHandle } from "./use-primitive"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { useNativeInput } from "./native-input.ts"
+import { useText } from "./text.ts"
+import { usePart, usePrimitive, type PrimitiveHandle } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

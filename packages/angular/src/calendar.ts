@@ -19,9 +19,9 @@ import {
   type CalendarDayProps,
   type CalendarOptions,
 } from "@ui-sdk/core/calendar"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 import {
   CalendarCell,
   CalendarContext,
@@ -29,8 +29,8 @@ import {
   CalendarWeek,
   CalendarWeekdaysRow,
   monthOffsets,
-} from "./calendar-context"
-import { useText } from "./text"
+} from "./calendar-context.ts"
+import { useText } from "./text.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

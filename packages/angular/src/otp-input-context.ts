@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, InjectionToken } from "@angular/core"
 import type { otpInput } from "@ui-sdk/core/otp-input"
-import { useFieldControl } from "./field-context"
-import { bindAttributes } from "./text"
-import { usePart, type PrimitiveHandle } from "./use-primitive"
+import { useFieldControl } from "./field-context.ts"
+import { bindAttributes } from "./text.ts"
+import { usePart, type PrimitiveHandle } from "./use-primitive.ts"
 
 type OTPInputScope = {
   handle: PrimitiveHandle<typeof otpInput>

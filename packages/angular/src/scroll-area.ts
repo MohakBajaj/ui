@@ -4,8 +4,8 @@ import {
   type ScrollAreaOptions,
   type ScrollAreaScrollbarProps,
 } from "@ui-sdk/core/scroll-area"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * Groups the parts. The scrollbars are placed against it.

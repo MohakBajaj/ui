@@ -9,7 +9,7 @@ import {
   ViewContainerRef,
 } from "@angular/core"
 import type { calendar, CalendarGridState } from "@ui-sdk/core/calendar"
-import { usePart, type PrimitiveHandle } from "./use-primitive"
+import { usePart, type PrimitiveHandle } from "./use-primitive.ts"
 
 // The calendar the parts render: a Calendar, or the one inside a Date Picker,
 // whose primitive has the same parts.

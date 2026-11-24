@@ -1,7 +1,7 @@
 import { Directive, input } from "@angular/core"
 import { label } from "@ui-sdk/core/label"
-import { optionalBoolean } from "./inputs"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * A native <label> that names any control, by `for` or by wrapping it. A control a <label> can't reach, like a radio group or a slider, takes it as its name, and a press on the label activates it.

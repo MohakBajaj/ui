@@ -16,9 +16,9 @@ import {
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogTitle,
-} from "./alert-dialog"
-import { ToastRegion } from "./toast"
-import { HostedRegion } from "./toast-context"
+} from "./alert-dialog.ts"
+import { ToastRegion } from "./toast.ts"
+import { HostedRegion } from "./toast-context.ts"
 
 /**
  * What the overlay host passes the toast regions it renders, like `side`. `class` goes on each region.

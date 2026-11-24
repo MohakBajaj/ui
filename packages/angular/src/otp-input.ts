@@ -9,12 +9,12 @@ import {
   type InputSignal,
 } from "@angular/core"
 import { otpInput, type OTPInputOptions } from "@ui-sdk/core/otp-input"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { FieldContext } from "./field-context"
-import { OTPInputControl, OTPInputScope } from "./otp-input-context"
-import { moveAttributes, useText } from "./text"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { FieldContext } from "./field-context.ts"
+import { OTPInputControl, OTPInputScope } from "./otp-input-context.ts"
+import { moveAttributes, useText } from "./text.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

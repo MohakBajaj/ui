@@ -21,22 +21,22 @@ import {
   type ToastRegionState,
   type ToastState,
 } from "@ui-sdk/core/toast"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { ActionEmitter } from "./outputs"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { ActionEmitter } from "./outputs.ts"
 import {
   HostedRegion,
   ToastList,
   ToastRegionContext,
   useContent,
   type ToastContent,
-} from "./toast-context"
+} from "./toast-context.ts"
 import {
   Renders,
   useId,
   usePart,
   usePrimitive,
   type PopupContainer,
-} from "./use-primitive"
+} from "./use-primitive.ts"
 
 /**
  * Shows a toast from anywhere: `toast("Saved")`, `toast.success(...)`,
@@ -320,7 +320,7 @@ export type {
   ToastState,
   ToastType,
 } from "@ui-sdk/core/toast"
-export type { ToastContent } from "./toast-context"
+export type { ToastContent } from "./toast-context.ts"
 
 export {
   createToaster,

@@ -17,7 +17,7 @@ import {
   HostedConfirm,
   HostedToaster,
   type OverlayHostToastProps,
-} from "./overlay-parts"
+} from "./overlay-parts.ts"
 
 /**
  * Renders what `toast()` and `confirm()` open, from anywhere in the app. Put

@@ -10,9 +10,9 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
-import { emitChange } from "./outputs"
-import { usePart, usePrimitive } from "./use-primitive"
+} from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeLoadingStatusChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

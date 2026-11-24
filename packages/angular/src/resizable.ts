@@ -10,9 +10,9 @@ import {
   type ResizableOptions,
   type ResizablePanelProps,
 } from "@ui-sdk/core/resizable"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { useId, usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useId, usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeLayoutChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

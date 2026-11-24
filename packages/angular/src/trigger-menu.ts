@@ -23,24 +23,29 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
-import { EditorContext } from "./editor-context"
-import { emitChange, ListenedEmitter } from "./outputs"
-import { PopupRoot, PopupScope, usePopupContent, usePopupRoot } from "./popup"
+} from "./inputs.ts"
+import { EditorContext } from "./editor-context.ts"
+import { emitChange, ListenedEmitter } from "./outputs.ts"
+import {
+  PopupRoot,
+  PopupScope,
+  usePopupContent,
+  usePopupRoot,
+} from "./popup.ts"
 import {
   useId,
   usePart,
   usePrimitive,
   type PopupContainer,
-} from "./use-primitive"
+} from "./use-primitive.ts"
 
 import type {
   TriggerMenuData,
   TriggerMenuDataItem,
 } from "@ui-sdk/core/trigger-menu"
-import { useFieldControl } from "./field-context"
-import { listEntry, useEmptyMessage } from "./list-context"
-import { useBlank } from "./text"
+import { useFieldControl } from "./field-context.ts"
+import { listEntry, useEmptyMessage } from "./list-context.ts"
+import { useBlank } from "./text.ts"
 /**
  * What `(beforeOpenChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.
  * @experimental

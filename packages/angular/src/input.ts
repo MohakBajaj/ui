@@ -11,11 +11,11 @@ import {
   type InputGroupState,
   type InputOptions,
 } from "@ui-sdk/core/input"
-import { useFieldControl } from "./field-context"
-import { optionalBoolean } from "./inputs"
-import { emitChange } from "./outputs"
-import { useTextControl } from "./text-control"
-import { usePart, usePrimitive } from "./use-primitive"
+import { useFieldControl } from "./field-context.ts"
+import { optionalBoolean } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useTextControl } from "./text-control.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the text about to be set, why, and `cancel()` to keep the current one.

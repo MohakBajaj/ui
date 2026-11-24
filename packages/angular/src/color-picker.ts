@@ -13,11 +13,11 @@ import {
   type ColorPickerSliderProps,
   type ColorPickerSwatchItemProps,
 } from "@ui-sdk/core/color-picker"
-import { optionalBoolean } from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { useNativeInput } from "./native-input"
-import { useId, usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { useNativeInput } from "./native-input.ts"
+import { useId, usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

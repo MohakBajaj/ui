@@ -12,11 +12,11 @@ import {
   type CheckboxIndicatorState,
   type CheckboxOptions,
 } from "@ui-sdk/core/checkbox"
-import { optionalBoolean } from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { useNativeInput } from "./native-input"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { useNativeInput } from "./native-input.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeCheckedChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

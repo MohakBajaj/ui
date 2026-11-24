@@ -19,8 +19,13 @@ import {
   type DrawerOutletState,
   type DrawerTriggerProps,
 } from "@ui-sdk/core/drawer"
-import { optionalBoolean, type StarInput, starInputs, withStar } from "./inputs"
-import { ActionEmitter, emitChange, type Action } from "./outputs"
+import {
+  optionalBoolean,
+  type StarInput,
+  starInputs,
+  withStar,
+} from "./inputs.ts"
+import { ActionEmitter, emitChange, type Action } from "./outputs.ts"
 import {
   plainButton,
   PopupRoot,
@@ -31,8 +36,8 @@ import {
   usePopupRoot,
   usePopupShortcut,
   usePopupTrigger,
-} from "./popup"
-import { usePart, usePrimitive, type PopupContainer } from "./use-primitive"
+} from "./popup.ts"
+import { usePart, usePrimitive, type PopupContainer } from "./use-primitive.ts"
 
 /**
  * What `(beforeOpenChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

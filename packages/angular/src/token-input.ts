@@ -26,17 +26,17 @@ import {
   type TokenInputOptions,
 } from "@ui-sdk/core/token-input"
 import { renderStaticHtml } from "@ui-sdk/core/renderer"
-import { optionalBoolean } from "./inputs"
-import { EditorContext } from "./editor-context"
-import { emitChange, ListenedEmitter } from "./outputs"
-import { useFieldControl } from "./field-context"
+import { optionalBoolean } from "./inputs.ts"
+import { EditorContext } from "./editor-context.ts"
+import { emitChange, ListenedEmitter } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
 import {
   usePart,
   usePrimitive,
   useStore,
   type PrimitiveHandle,
-} from "./use-primitive"
-import { useFormTextarea } from "./native-input"
+} from "./use-primitive.ts"
+import { useFormTextarea } from "./native-input.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

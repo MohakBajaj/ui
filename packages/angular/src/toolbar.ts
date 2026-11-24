@@ -1,8 +1,8 @@
 import { Directive, inject, input, type InputSignal } from "@angular/core"
 import { toolbar, type ToolbarOptions } from "@ui-sdk/core/toolbar"
-import { optionalBoolean } from "./inputs"
-import { ToolbarGroupDisabled, ToolbarHandle } from "./toolbar-context"
-import { useId, usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { ToolbarGroupDisabled, ToolbarHandle } from "./toolbar-context.ts"
+import { useId, usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * A row of controls with one tab stop and arrow keys between them. Toggles and toggle groups inside join it. Put `uiToolbarButton` on menu and select triggers, and `uiToolbarInput` on fields.

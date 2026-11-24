@@ -20,16 +20,16 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
-import { emitChange } from "./outputs"
-import { PopupScope } from "./popup"
+} from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { PopupScope } from "./popup.ts"
 import {
   useId,
   usePart,
   usePrimitive,
   type PopupContainer,
   type PrimitiveHandle,
-} from "./use-primitive"
+} from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

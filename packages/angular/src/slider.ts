@@ -9,13 +9,13 @@ import {
   type InputSignal,
 } from "@angular/core"
 import { slider, type SliderOptions } from "@ui-sdk/core/slider"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { SliderThumbInput, SliderThumbScope } from "./slider-context"
-import { moveAttributes, useText } from "./text"
-import { useNativeInput } from "./native-input"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { SliderThumbInput, SliderThumbScope } from "./slider-context.ts"
+import { moveAttributes, useText } from "./text.ts"
+import { useNativeInput } from "./native-input.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

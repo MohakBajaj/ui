@@ -4,9 +4,9 @@ import {
   type AccordionController,
   type AccordionValueChangeReason,
 } from "@ui-sdk/core/accordion"
-import { optionalBoolean } from "./inputs"
-import { emitChange, type Change } from "./outputs"
-import { useId, usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { emitChange, type Change } from "./outputs.ts"
+import { useId, usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the items about to be open, why, and

@@ -13,10 +13,10 @@ import {
   type WaterfallOptions,
   type WaterfallRowProps,
 } from "@ui-sdk/core/waterfall"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { emitChange } from "./outputs"
-import { usePart, usePrimitive } from "./use-primitive"
-import { useText } from "./text"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
+import { useText } from "./text.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

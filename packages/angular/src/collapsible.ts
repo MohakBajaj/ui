@@ -4,9 +4,9 @@ import {
   type CollapsibleController,
   type CollapsibleOpenChangeReason,
 } from "@ui-sdk/core/collapsible"
-import { optionalBoolean } from "./inputs"
-import { emitChange, type Change } from "./outputs"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { emitChange, type Change } from "./outputs.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeOpenChange)` emits: whether the panel is about to open, why,

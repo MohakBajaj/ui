@@ -1,8 +1,8 @@
 import { Directive, inject, input, type InputSignal } from "@angular/core"
 import { progress, type ProgressOptions } from "@ui-sdk/core/progress"
-import { nullableNumber, optionalBoolean, optionalNumber } from "./inputs"
-import { useText } from "./text"
-import { usePart, usePrimitive } from "./use-primitive"
+import { nullableNumber, optionalBoolean, optionalNumber } from "./inputs.ts"
+import { useText } from "./text.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * The root, which is the progressbar.

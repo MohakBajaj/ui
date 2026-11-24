@@ -1,7 +1,7 @@
 import { Directive, input, type InputSignal } from "@angular/core"
 import { separator, type SeparatorOptions } from "@ui-sdk/core/separator"
-import { optionalBoolean } from "./inputs"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * A line between groups of content, announced as a separator unless it's `decorative`.

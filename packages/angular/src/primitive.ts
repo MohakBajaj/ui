@@ -5,4 +5,4 @@ export {
   type PrimitiveHandle,
   usePart,
   usePrimitive,
-} from "./use-primitive"
+} from "./use-primitive.ts"

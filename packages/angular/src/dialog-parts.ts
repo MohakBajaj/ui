@@ -18,8 +18,13 @@ import type {
   DialogShortcutState,
   DialogTriggerState,
 } from "@ui-sdk/core/dialog"
-import { optionalBoolean, type StarInput, starInputs, withStar } from "./inputs"
-import { ActionEmitter, type Action } from "./outputs"
+import {
+  optionalBoolean,
+  type StarInput,
+  starInputs,
+  withStar,
+} from "./inputs.ts"
+import { ActionEmitter, type Action } from "./outputs.ts"
 import {
   plainButton,
   PopupRoot,
@@ -29,8 +34,8 @@ import {
   usePopupLayer,
   usePopupShortcut,
   usePopupTrigger,
-} from "./popup"
-import { usePart, type PopupContainer } from "./use-primitive"
+} from "./popup.ts"
+import { usePart, type PopupContainer } from "./use-primitive.ts"
 
 // What a Dialog or an AlertDialog hands its parts. An alert dialog's slots
 // and state are the dialog's, so one set of parts binds to either, and it

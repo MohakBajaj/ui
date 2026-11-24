@@ -1,8 +1,8 @@
 import { Directive, input, type InputSignal } from "@angular/core"
 import { button, type ButtonOptions } from "@ui-sdk/core/button"
-import { optionalBoolean } from "./inputs"
-import { ActionEmitter, type Action } from "./outputs"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { ActionEmitter, type Action } from "./outputs.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(action)` emits: the press, how it was made, and `waitUntil()`.

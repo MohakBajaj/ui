@@ -25,27 +25,32 @@ import {
   type StarInput,
   starInputs,
   withStar,
-} from "./inputs"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { useNativeInput } from "./native-input"
-import { PopupRoot, PopupScope, usePopupContent, usePopupRoot } from "./popup"
+} from "./inputs.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { useNativeInput } from "./native-input.ts"
+import {
+  PopupRoot,
+  PopupScope,
+  usePopupContent,
+  usePopupRoot,
+} from "./popup.ts"
 import {
   usePart,
   usePrimitive,
   type Joined,
   type PopupContainer,
   type PrimitiveHandle,
-} from "./use-primitive"
+} from "./use-primitive.ts"
 import type { calendar } from "@ui-sdk/core/calendar"
 import {
   CalendarGrid,
   CalendarHeading,
   CalendarNext,
   CalendarPrevious,
-} from "./calendar"
-import { CalendarContext, monthOffsets } from "./calendar-context"
-import { useText } from "./text"
+} from "./calendar.ts"
+import { CalendarContext, monthOffsets } from "./calendar-context.ts"
+import { useText } from "./text.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.
@@ -509,7 +514,7 @@ export {
   CalendarWeekdays,
   CalendarWeeks,
   CalendarYearSelect,
-} from "./calendar"
+} from "./calendar.ts"
 export { createDatePickerController } from "@ui-sdk/core/date-picker"
 export type {
   CalendarDayState,

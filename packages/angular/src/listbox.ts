@@ -14,12 +14,12 @@ import {
   type ListboxItemProps,
   type ListboxOptions,
 } from "@ui-sdk/core/listbox"
-import { optionalBoolean, optionalNumber } from "./inputs"
-import { listEntry } from "./list-context"
-import { emitChange } from "./outputs"
-import { useFieldControl } from "./field-context"
-import { useFormInputs } from "./native-input"
-import { useId, usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean, optionalNumber } from "./inputs.ts"
+import { listEntry } from "./list-context.ts"
+import { emitChange } from "./outputs.ts"
+import { useFieldControl } from "./field-context.ts"
+import { useFormInputs } from "./native-input.ts"
+import { useId, usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * What `(beforeValueChange)` emits: the value about to be set, why, and `cancel()` to keep the current one.

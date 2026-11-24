@@ -4,8 +4,8 @@ import {
   type TimelineItemProps,
   type TimelineOptions,
 } from "@ui-sdk/core/timeline"
-import { optionalBoolean } from "./inputs"
-import { usePart, usePrimitive } from "./use-primitive"
+import { optionalBoolean } from "./inputs.ts"
+import { usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * A list of dated events, like an activity feed or an order's history, with one tab stop and arrow keys between events. `feed` makes it a feed of articles that loads more as people scroll.

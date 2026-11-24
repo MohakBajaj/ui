@@ -7,7 +7,7 @@ import {
 import type { Attrs } from "@ui-sdk/core"
 import type { field, fieldSet } from "@ui-sdk/core/field"
 import { fieldControlId } from "@ui-sdk/core/renderer"
-import type { Joined, PrimitiveHandle } from "./use-primitive"
+import type { Joined, PrimitiveHandle } from "./use-primitive.ts"
 
 type FieldScope = {
   handle: PrimitiveHandle<typeof field>
