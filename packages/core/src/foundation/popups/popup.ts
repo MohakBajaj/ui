@@ -1335,6 +1335,7 @@ function createPopupLayer<
           { capture: true }
         ),
         on(el.ownerDocument, "focusin", (event) => {
+          tabbing = false
           const target = (focusedFrom(el) ?? event.target) as Node
           if (!store.get().open || layerContains(own, target)) {
             return
@@ -1345,7 +1346,7 @@ function createPopupLayer<
           options.close("focus-out", { event, focus: false })
         }),
         // Tab out of the page lands on the body, which fires no focusin. Other
-        // blurs to nothing, like the window's, leave the popup open.
+        // blurs to nothing, like a focused control going away, leave it open.
         on(el, "focusout", (event) => {
           if (!tabbing || event.relatedTarget) {
             return

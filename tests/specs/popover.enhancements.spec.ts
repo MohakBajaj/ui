@@ -109,6 +109,22 @@ test.describe("enhancements", { tag: "@enhancement" }, () => {
     await expect(dialog(page)).toBeHidden()
   })
 
+  test("a control that turns disabled after Tab reaches it keeps the popover open", async ({
+    page,
+    open,
+    tab,
+  }) => {
+    await open("popover")
+    await trigger(page).click()
+    await page.getByRole("button", { name: "Save" }).focus()
+    await tab()
+    const close = page.getByRole("button", { name: "Close" })
+    await expect(close).toBeFocused()
+    await close.evaluate((el) => ((el as HTMLButtonElement).disabled = true))
+    await page.waitForTimeout(100)
+    await expect(dialog(page)).toBeVisible()
+  })
+
   test("a popover open from the start leaves focus alone", async ({
     page,
     open,
