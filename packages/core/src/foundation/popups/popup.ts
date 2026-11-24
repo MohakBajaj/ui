@@ -619,6 +619,7 @@ function createPopupLayer<
   let openedByKey = false
   let returnMode: ReturnMode = true
   let before: HTMLElement | undefined
+  let tabbing = false
   // The caret in a contenteditable it opened from, which focus alone puts back at the start.
   let caret: ReturnType<typeof readCaret> | undefined
   let openedWithoutTrigger = store.get().open
@@ -1324,6 +1325,7 @@ function createPopupLayer<
           "mousedown",
           (event) => {
             press = event
+            tabbing = false
             setTimeout(() => {
               if (press === event) {
                 press = undefined
@@ -1341,6 +1343,19 @@ function createPopupLayer<
             return
           }
           options.close("focus-out", { event, focus: false })
+        }),
+        // Tab out of the page lands on the body, which fires no focusin. Other
+        // blurs to nothing, like the window's, leave the popup open.
+        on(el, "focusout", (event) => {
+          if (!tabbing || event.relatedTarget) {
+            return
+          }
+          setTimeout(() => {
+            const now = activeElement(el.ownerDocument)
+            if (store.get().open && !(now && layerContains(own, now))) {
+              options.close("focus-out", { event, focus: false })
+            }
+          })
         })
       )
     }
@@ -1460,6 +1475,7 @@ function createPopupLayer<
   // inside a trapping popup, goes back to the page after the trigger from a
   // flowing one, wherever it renders, and closes a menu-like one.
   function keydown(event: KeyboardEvent) {
+    tabbing = event.key === "Tab"
     if (event.key === "Escape" && layer) {
       return escapeLayer(layer, event)
     }
@@ -1550,25 +1566,19 @@ function createPopupLayer<
     // Without a trigger, Tab goes on from what had focus, where focus returns.
     const trigger =
       options.trigger() ?? (before?.isConnected ? before : undefined)
-    const next =
-      trigger && !event.shiftKey && atEnd
-        ? nextTabbable(trigger, popup)
-        : undefined
-    if (trigger && event.shiftKey && atStart) {
+    if (!trigger) {
+      return
+    }
+    if (event.shiftKey && atStart) {
       event.preventDefault()
       trigger.focus({ preventScroll: true })
-    } else if (next) {
+    } else if (!event.shiftKey && atEnd) {
+      const next = nextTabbable(trigger, popup)
+      if (!next) {
+        return
+      }
       event.preventDefault()
       next.focus()
-    } else if (behavior.dismissOnFocusLoss) {
-      // Tab the browser takes out of the page leaves focus on the body, and
-      // no focusin fires to close the popup.
-      setTimeout(() => {
-        const now = activeElement(popup.ownerDocument)
-        if (store.get().open && (!now || now === popup.ownerDocument.body)) {
-          options.close("focus-out", { event, focus: false })
-        }
-      })
     }
   }
 

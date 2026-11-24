@@ -104,8 +104,10 @@ test.describe("enhancements", { tag: "@enhancement" }, () => {
     await trigger(page).click()
     await page.getByRole("button", { name: "Close" }).focus()
     await tab()
+    await expect
+      .poll(() => page.evaluate(() => document.activeElement === document.body))
+      .toBe(true)
     await expect(dialog(page)).toBeHidden()
-    await expect(trigger(page)).not.toBeFocused()
   })
 
   test("a popover open from the start leaves focus alone", async ({
