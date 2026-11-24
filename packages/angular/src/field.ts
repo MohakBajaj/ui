@@ -186,13 +186,20 @@ class FieldControl {
     const el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement
     const own = inject(new HostAttributeToken("name"), { optional: true })
     if (field && own === null) {
+      let gave: string | undefined
       effect(() => {
         const name = field.name()
+        const current = el.getAttribute("name")
+        // A name the author bound, like `[name]`, stays. The server's is ours.
+        if (current !== null && current !== gave && current !== name) {
+          return
+        }
         if (name) {
           el.setAttribute("name", name)
-        } else {
+        } else if (current !== null) {
           el.removeAttribute("name")
         }
+        gave = name
       })
     }
   }

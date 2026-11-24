@@ -48,6 +48,9 @@ import { mount } from "./mount"
         <label uiFieldLabel>Plain</label>
         <input uiFieldControl id="plain" />
       </div>
+      <div uiField>
+        <input uiFieldControl id="bound" [name]="'nickname'" />
+      </div>
       <div uiField name="news" id="news-field">
         <label uiFieldLabel>Newsletter</label>
         <button type="button" uiSwitch id="news" [(checked)]="news">
@@ -143,6 +146,7 @@ describe("forms", () => {
     expect(label.htmlFor).toBe("plain")
     expect(input.getAttribute("aria-labelledby")).toBe(label.id)
     expect(input.name).toBe("plain")
+    expect(el<HTMLInputElement>(host, "#bound").name).toBe("nickname")
   })
 
   test("a switch submits through its hidden input and takes its field's name", async () => {
