@@ -136,12 +136,13 @@ describe("forms", () => {
     )
   })
 
-  test("a FieldControl wires a plain input", async () => {
+  test("a FieldControl wires a plain input and gives it the field's name", async () => {
     const { host } = await mount(Page)
     const input = el<HTMLInputElement>(host, "#plain")
     const label = el<HTMLLabelElement>(host, "#plain-field label")
     expect(label.htmlFor).toBe("plain")
     expect(input.getAttribute("aria-labelledby")).toBe(label.id)
+    expect(input.name).toBe("plain")
   })
 
   test("a switch submits through its hidden input and takes its field's name", async () => {

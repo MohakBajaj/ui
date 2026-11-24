@@ -38,7 +38,36 @@ const key = (target: HTMLElement, name: string) =>
     new KeyboardEvent("keydown", { key: name, bubbles: true, cancelable: true })
   )
 
+@Component({
+  selector: "test-root",
+  imports: [Toggle],
+  template: `
+    <button
+      uiToggle
+      [defaultPressed]="on"
+      #toggle="uiToggle"
+      [class.active]="toggle.state().pressed"
+    >
+      Bold
+    </button>
+  `,
+})
+class BoundDefault {
+  readonly on = true
+}
+
 describe("toggle", () => {
+  test("a bound default applies when a class binding reads the state first", async () => {
+    const { host, settle } = await mount(BoundDefault)
+    const button = host.querySelector("button")!
+    expect(button.getAttribute("aria-pressed")).toBe("true")
+    expect(button.classList.contains("active")).toBe(true)
+    button.click()
+    await settle()
+    expect(button.getAttribute("aria-pressed")).toBe("false")
+    expect(button.classList.contains("active")).toBe(false)
+  })
+
   test("a press toggles it and updates the bound value", async () => {
     const { host, instance, settle } = await mount(Page)
     expect(el(host, "#bold").getAttribute("aria-pressed")).toBe("false")

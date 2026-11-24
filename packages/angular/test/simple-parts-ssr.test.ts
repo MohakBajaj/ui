@@ -74,6 +74,12 @@ import { render, tagWith } from "./render"
       <li uiTimelineItem value="shipped" status="current">
         <span uiTimelineTitle>Shipped</span>
       </li>
+      <li uiTimelineItem class="first-unnamed">
+        <span uiTimelineTitle>Out for delivery</span>
+      </li>
+      <li uiTimelineItem class="second-unnamed">
+        <span uiTimelineTitle>Delivered</span>
+      </li>
     </ol>
     <label uiLabel for="name">Name</label>
   `,
@@ -99,6 +105,20 @@ describe("server rendering the simple parts", () => {
     expect(tag(html, "meter")).toContain('aria-valuenow="3"')
     expect(tagWith(html, "Paid")).toContain("data-slot=")
     expect(tagWith(html, "Name")).toContain('for="name"')
+  })
+
+  test("a timeline item with no value is named by its own title", async () => {
+    const html = await render(Page)
+    const id = (tag: string) => tag.match(/ id="([^"]+)"/)?.[1]
+    for (const [item, title] of [
+      ["first-unnamed", "Out for delivery"],
+      ["second-unnamed", "Delivered"],
+    ]) {
+      expect(id(tagWith(html, title))).toBeTruthy()
+      expect(tag(html, item)).toContain(
+        `aria-labelledby="${id(tagWith(html, title))}"`
+      )
+    }
   })
 
   test("the avatar's fallback shows until the image loads", async () => {

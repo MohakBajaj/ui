@@ -100,6 +100,14 @@ describe("tabs", () => {
     expect(tab(host, "B").getAttribute("aria-selected")).toBe("true")
   })
 
+  test("a bound value reaches the tabs in the task that changed it", async () => {
+    const { host } = await mount(Controlled)
+    tab(host, "B").click()
+    // A browser runs microtasks between two events, and no render.
+    await Promise.resolve()
+    expect(tab(host, "B").getAttribute("aria-selected")).toBe("true")
+  })
+
   test("setting the bound value selects its tab", async () => {
     const { host, instance, settle } = await mount(Controlled)
     instance.tab.set("b")

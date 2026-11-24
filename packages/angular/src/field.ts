@@ -3,6 +3,7 @@ import {
   Directive,
   effect,
   ElementRef,
+  HostAttributeToken,
   inject,
   input,
   type InputSignal,
@@ -179,6 +180,22 @@ class FieldControl {
   readonly state = this.#field
     ? usePart(this.#field.handle, "control", controlProps()).state
     : useOutside("control")
+
+  constructor() {
+    const field = this.#field
+    const el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement
+    const own = inject(new HostAttributeToken("name"), { optional: true })
+    if (field && own === null) {
+      effect(() => {
+        const name = field.name()
+        if (name) {
+          el.setAttribute("name", name)
+        } else {
+          el.removeAttribute("name")
+        }
+      })
+    }
+  }
 }
 
 /**

@@ -1,11 +1,17 @@
-import { Directive, inject, input, type InputSignal } from "@angular/core"
+import {
+  computed,
+  Directive,
+  inject,
+  input,
+  type InputSignal,
+} from "@angular/core"
 import {
   timeline,
   type TimelineItemProps,
   type TimelineOptions,
 } from "@ui-sdk/core/timeline"
 import { optionalBoolean } from "./inputs.ts"
-import { usePart, usePrimitive } from "./use-primitive.ts"
+import { useId, usePart, usePrimitive } from "./use-primitive.ts"
 
 /**
  * A list of dated events, like an activity feed or an order's history, with one tab stop and arrow keys between events. `feed` makes it a feed of articles that loads more as people scroll.
@@ -48,10 +54,13 @@ class TimelineItem {
   readonly value: InputSignal<TimelineItemProps["value"]> = input()
   /** Where the event stands in a process. The `"current"` one sets `aria-current="step"` and takes the tab stop first. */
   readonly status: InputSignal<TimelineItemProps["status"]> = input()
+  readonly #generated = useId()
+  /** The event's value: the one it was given, or the generated one. */
+  readonly key = computed(() => this.value() ?? this.#generated)
 
   /** The part's state, as a signal. */
   readonly state = usePart(inject(Timeline).handle, "item", () => ({
-    value: this.value(),
+    value: this.key(),
     status: this.status(),
   })).state
 }
@@ -66,7 +75,7 @@ class TimelineMarker {
 
   /** The part's state, as a signal. */
   readonly state = usePart(inject(Timeline).handle, "marker", () => ({
-    value: this.#item?.value(),
+    value: this.#item?.key(),
     status: this.#item?.status(),
   })).state
 }
@@ -84,7 +93,7 @@ class TimelineConnector {
 
   /** The part's state, as a signal. */
   readonly state = usePart(inject(Timeline).handle, "connector", () => ({
-    value: this.#item?.value(),
+    value: this.#item?.key(),
     status: this.#item?.status(),
   })).state
 }
@@ -99,7 +108,7 @@ class TimelineTime {
 
   /** The part's state, as a signal. */
   readonly state = usePart(inject(Timeline).handle, "time", () => ({
-    value: this.#item?.value(),
+    value: this.#item?.key(),
     status: this.#item?.status(),
   })).state
 }
@@ -114,7 +123,7 @@ class TimelineTitle {
 
   /** The part's state, as a signal. */
   readonly state = usePart(inject(Timeline).handle, "title", () => ({
-    value: this.#item?.value(),
+    value: this.#item?.key(),
     status: this.#item?.status(),
   })).state
 }
@@ -132,7 +141,7 @@ class TimelineDescription {
 
   /** The part's state, as a signal. */
   readonly state = usePart(inject(Timeline).handle, "description", () => ({
-    value: this.#item?.value(),
+    value: this.#item?.key(),
     status: this.#item?.status(),
   })).state
 }

@@ -6,8 +6,10 @@ import {
   DestroyRef,
   effect,
   ElementRef,
+  ErrorHandler,
   inject,
   Injectable,
+  NgZone,
   signal,
   TemplateRef,
   untracked,
@@ -58,6 +60,7 @@ class Ids {
 @Injectable({ providedIn: "root" })
 class Renders {
   readonly #app = inject(ApplicationRef)
+  readonly #errors = inject(ErrorHandler)
   #queued = false
 
   soon() {
@@ -67,8 +70,15 @@ class Renders {
     this.#queued = true
     queueMicrotask(() => {
       this.#queued = false
-      if (!this.#app.destroyed) {
+      if (this.#app.destroyed) {
+        return
+      }
+      // `tick()` throws what a template threw, where Angular's own renders
+      // hand it to the app's error handler.
+      try {
         this.#app.tick()
+      } catch (error) {
+        this.#errors.handleError(error)
       }
     })
   }
@@ -99,6 +109,7 @@ function usePrimitive<P extends Primitive>(
   options: () => OptionsOf<P>
 ) {
   const id = inject(Ids).next()
+  const renders = inject(Renders)
   let instance: ReturnType<P> | undefined
   const features = new Set<Feature>()
   // Inputs arrive after the constructor, so the instance waits for a reader.
@@ -109,22 +120,58 @@ function usePrimitive<P extends Primitive>(
     const next: Record<string, unknown> = { ...given, id }
     for (const [key, value] of Object.entries(next)) {
       if (typeof value === "function" && /^on[A-Z]/.test(key)) {
-        next[key] = (...args: unknown[]) =>
-          destroyed ? undefined : value(...args)
+        // A parent writes a bound value as the change emits, and the input
+        // here follows once Angular renders: a frame later without Zone.js.
+        // Rendering in the same task hands it to core before the next event.
+        const changes = key.endsWith("Change")
+        next[key] = (...args: unknown[]) => {
+          if (destroyed) {
+            return undefined
+          }
+          const result = value(...args)
+          if (changes && !NgZone.isInAngularZone()) {
+            renders.soon()
+          }
+          return result
+        }
       }
     }
     return next as OptionsOf<P>
   }
+  // Angular evaluates a class binding on the root's own element before it
+  // sets the inputs. A state read there makes the instance without a bound
+  // default, which only the first options can set, so it's made again.
+  let early: Record<string, unknown> | undefined
+  let synced = false
+  const remade = signal(0)
   const make = () => {
     if (!instance) {
-      instance = primitive(whileAlive(untracked(options))) as ReturnType<P>
+      const first = untracked(options)
+      early = synced ? undefined : first
+      instance = primitive(whileAlive(first)) as ReturnType<P>
       features.forEach((feature) => instance?.use(feature))
     }
     return instance
   }
   effect(() => {
-    const next = options()
-    untracked(() => make().setOptions(whileAlive(next)))
+    const next: Record<string, unknown> = options()
+    untracked(() => {
+      const before = early
+      early = undefined
+      synced = true
+      if (
+        before &&
+        Object.keys(next).some(
+          (key) =>
+            key.startsWith("default") && !Object.is(next[key], before[key])
+        )
+      ) {
+        instance?.destroy()
+        instance = undefined
+        remade.update((count) => count + 1)
+      }
+      make().setOptions(whileAlive(next as OptionsOf<P>))
+    })
   })
   inject(DestroyRef).onDestroy(() => {
     destroyed = true
@@ -132,9 +179,11 @@ function usePrimitive<P extends Primitive>(
   })
   const handle: PrimitiveHandle<P> = {
     get instance() {
+      remade()
       return make()
     },
     get api() {
+      remade()
       return make().api as TypesOf<P>["api"]
     },
   }
@@ -252,6 +301,11 @@ function bindPart<P extends Primitive, S extends SlotName<P>>(
   const host =
     inject<ElementRef<HTMLElement | Comment>>(ElementRef).nativeElement
   const template = inject(TemplateRef, { optional: true })
+  if (!template && host.nodeType !== 1) {
+    throw new Error(
+      `The "${slot}" part needs an element. Put its directive on one, not on an <ng-container>.`
+    )
+  }
   const container = template ? inject(ViewContainerRef) : undefined
   const own = inject(Ids).next()
   const renders = inject(Renders)
