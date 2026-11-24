@@ -1550,19 +1550,25 @@ function createPopupLayer<
     // Without a trigger, Tab goes on from what had focus, where focus returns.
     const trigger =
       options.trigger() ?? (before?.isConnected ? before : undefined)
-    if (!trigger) {
-      return
-    }
-    if (event.shiftKey && atStart) {
+    const next =
+      trigger && !event.shiftKey && atEnd
+        ? nextTabbable(trigger, popup)
+        : undefined
+    if (trigger && event.shiftKey && atStart) {
       event.preventDefault()
       trigger.focus({ preventScroll: true })
-    } else if (!event.shiftKey && atEnd) {
-      const next = nextTabbable(trigger, popup)
-      if (!next) {
-        return
-      }
+    } else if (next) {
       event.preventDefault()
       next.focus()
+    } else if (behavior.dismissOnFocusLoss) {
+      // Tab the browser takes out of the page leaves focus on the body, and
+      // no focusin fires to close the popup.
+      setTimeout(() => {
+        const now = activeElement(popup.ownerDocument)
+        if (store.get().open && (!now || now === popup.ownerDocument.body)) {
+          options.close("focus-out", { event, focus: false })
+        }
+      })
     }
   }
 
