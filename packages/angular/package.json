@@ -1,7 +1,6 @@
 {
   "name": "@ui-sdk/angular",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0-beta.17",
   "description": "UI SDK for Angular.",
   "keywords": [
     "angular",
@@ -381,7 +380,8 @@
       "./waterfall": {
         "types": "./dist/waterfall.d.ts",
         "default": "./dist/waterfall.js"
-      }
+      },
+      "./package.json": "./package.json"
     }
   },
   "scripts": {
