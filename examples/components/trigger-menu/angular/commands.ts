@@ -3,8 +3,10 @@ import { useLog } from "../../../shared/angular/log"
 import { Field, FieldControl, FieldLabel } from "@ui-sdk/angular/field"
 import {
   TriggerMenu,
+  TriggerMenuContent,
   TriggerMenuHint,
   TriggerMenuInput,
+  TriggerMenuList,
   type TriggerMenuSelect,
 } from "@ui-sdk/angular/trigger-menu"
 
@@ -14,8 +16,10 @@ import {
     FieldControl,
     FieldLabel,
     TriggerMenu,
+    TriggerMenuContent,
     TriggerMenuHint,
     TriggerMenuInput,
+    TriggerMenuList,
   ],
   template: `
     <form data-slot="stack" (submit)="onSubmit($event)">
@@ -34,7 +38,10 @@ import {
             placeholder="Type / for commands…"
           ></textarea>
         </div>
-        <span *uiTriggerMenuHint></span>
+        <span uiTriggerMenuHint></span>
+        <div *uiTriggerMenuContent>
+          <div uiTriggerMenuList></div>
+        </div>
       </ng-container>
     </form>
   `,

@@ -617,7 +617,7 @@ A `before` output emits `{ value, reason, event, cancel() }` before the change, 
 | `[(open)]`                | `uiDrawer` | Whether the drawer is open                                                                 |
 | `[(snapPoint)]`           | `uiDrawer` | The snap point it rests on                                                                 |
 | `(beforeOpenChange)`      | `uiDrawer` | `{ value, reason, cancel() }`: the new state, the [reason](#reasons) and any `returnValue` |
-| `(openChangeComplete)`    | `uiDrawer` | `(open)`, once it has settled                                                              |
+| `(openChangeComplete)`    | `uiDrawer` | `$event`, whether it's open, once it has settled                                           |
 | `(beforePayloadChange)`   | `uiDrawer` | `{ value, reason, cancel() }`: the content's new payload, and the [reason](#reasons)       |
 | `(beforeSnapPointChange)` | `uiDrawer` | `{ value, reason, cancel() }`: the new snap point and the [reason](#reasons)               |
 | `(dismissAttempt)`        | `uiDrawer` | `{ reason, event }`, when a dismissal was refused                                          |

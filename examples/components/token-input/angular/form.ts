@@ -9,6 +9,8 @@ import {
   type TokenInputValue,
 } from "@ui-sdk/angular/token-input"
 
+let nextId = 0
+
 @Component({
   imports: [
     Checkbox,
@@ -82,7 +84,7 @@ class Example {
 
   readonly readOnly = signal(false)
 
-  readonly formId = "form-id"
+  readonly formId = `message-form-${nextId++}`
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault()

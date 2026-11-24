@@ -31,7 +31,7 @@ uiMenu
 
 Give items a `value` and handle `(action)` on the menu to run the selected command. A Group and GroupLabel can organize related actions; a Separator divides them without becoming a focus stop.
 
-Return a promise from `(action)` or an item’s `(select)` to keep the item pending. It gets `data-pending`, `aria-busy` and `aria-disabled`, the menu stays open, and choosing it again does nothing until the promise settles. The menu closes once it resolves. A rejection keeps it open and puts the reason in the item’s `error` state until the next try. After a second, screen readers hear `pendingAnnouncement`, “Loading” by default.
+Pass a promise to `$event.waitUntil()` in `(action)` or an item’s `(select)` to keep the item pending. It gets `data-pending`, `aria-busy` and `aria-disabled`, the menu stays open, and choosing it again does nothing until the promise settles. The menu closes once it resolves. A rejection keeps it open and puts the reason in the item’s `error` state until the next try. After a second, screen readers hear `pendingAnnouncement`, “Loading” by default.
 
 ## Usage
 
@@ -603,20 +603,20 @@ Every write method takes an optional `{ reason, event }`, passed to `(beforeOpen
 
 A `before` output emits `{ value, reason, event, cancel() }` before the change, and its plain output follows with the value alone. A bound `open`, `checked` or `value` only updates when its change isn't canceled.
 
-| Binding                 | On                   | Receives                                                                             |
-| ----------------------- | -------------------- | ------------------------------------------------------------------------------------ |
-| `[(open)]`              | `uiMenu`             | Whether the menu is open                                                             |
-| `(beforeOpenChange)`    | `uiMenu`             | `{ value, reason, cancel() }`: the new state, and the [reason](#reasons)             |
-| `(openChangeComplete)`  | `uiMenu`             | `$event`, whether it's open, after the animation                                     |
-| `(beforePayloadChange)` | `uiMenu`             | `{ value, reason, cancel() }`: the content's new payload, and the [reason](#reasons) |
-| `(action)`              | `uiMenu`             | `(value, { event })` for every plain item, including items in submenus               |
-| `(beforeCheckedChange)` | `uiMenu`             | `(checked, details)`, with the item's value in `$event.value`. For data menus        |
-| `(beforeValueChange)`   | `uiMenu`             | `(value, details)`, with the group's name in `$event.group`. For data menus          |
-| `(dismissAttempt)`      | `uiMenu`             | `{ reason, event }`, when a dismissal was refused                                    |
-| `[(open)]`              | `uiMenuSub`          | Whether the submenu is open                                                          |
-| `(select)`              | `uiMenuItem`         | `(event)`, before the menu closes. `event.preventDefault()` keeps it open            |
-| `[(checked)]`           | `uiMenuCheckboxItem` | Whether the item is checked. `(beforeCheckedChange)` has the details                 |
-| `[(value)]`             | `uiMenuRadioGroup`   | The selected value. `(beforeValueChange)` has the details                            |
+| Binding                 | On                   | Receives                                                                                        |
+| ----------------------- | -------------------- | ----------------------------------------------------------------------------------------------- |
+| `[(open)]`              | `uiMenu`             | Whether the menu is open                                                                        |
+| `(beforeOpenChange)`    | `uiMenu`             | `{ value, reason, cancel() }`: the new state, and the [reason](#reasons)                        |
+| `(openChangeComplete)`  | `uiMenu`             | `$event`, whether it's open, after the animation                                                |
+| `(beforePayloadChange)` | `uiMenu`             | `{ value, reason, cancel() }`: the content's new payload, and the [reason](#reasons)            |
+| `(action)`              | `uiMenu`             | `{ value, event, waitUntil() }` for every plain item, including items in submenus               |
+| `(checkedChange)`       | `uiMenu`             | `{ value, checked, reason, cancel() }` for any checkbox item. For data menus                    |
+| `(valueChange)`         | `uiMenu`             | `{ group, value, reason, cancel() }` for any radio group. For data menus                        |
+| `(dismissAttempt)`      | `uiMenu`             | `{ reason, event }`, when a dismissal was refused                                               |
+| `[(open)]`              | `uiMenuSub`          | Whether the submenu is open                                                                     |
+| `(select)`              | `uiMenuItem`         | `{ event, waitUntil() }`, before the menu closes. `$event.event.preventDefault()` keeps it open |
+| `[(checked)]`           | `uiMenuCheckboxItem` | Whether the item is checked. `(beforeCheckedChange)` has the details                            |
+| `[(value)]`             | `uiMenuRadioGroup`   | The selected value. `(beforeValueChange)` has the details                                       |
 
 ## Accessibility
 

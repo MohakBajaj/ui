@@ -31,7 +31,7 @@ uiTriggerMenu
         └── uiTriggerMenuItem
 ```
 
-`uiTriggerMenu` holds the triggers and what each one lists. `uiTriggerMenuInput` is the field people type in, and `uiTriggerMenuContent` is the popup with the suggestions. Without a `uiTriggerMenuContent` among its direct children, the menu renders the current trigger's items for you. Inside a [Token Input](./token-input), leave out `uiTriggerMenuInput`: the menu suggests into the token input.
+`uiTriggerMenu` holds the triggers and what each one lists. `uiTriggerMenuInput` is the field people type in, and `uiTriggerMenuContent` is the popup with the suggestions. Inside it, an empty `uiTriggerMenuList` renders the current trigger's items for you. Inside a [Token Input](./token-input), leave out `uiTriggerMenuInput`: the menu suggests into the token input.
 
 ## Usage
 
@@ -91,7 +91,7 @@ Use Trigger Menu with a textarea or an input to insert text. Put it inside a Tok
 
 ## Triggers as Data
 
-Give each trigger a `char` and its `items`. Items can be strings, objects, groups or a loader, and they render themselves when you leave out `uiTriggerMenuContent`. The same field can offer people after `@`, commands after `/` and channels after `#`.
+Give each trigger a `char` and its `items`. Items can be strings, objects, groups or a loader, and they render themselves in a `uiTriggerMenuList` you leave empty. The same field can offer people after `@`, commands after `/` and channels after `#`.
 
 <ComponentExample
   name="trigger-menu/data"
@@ -411,7 +411,7 @@ A `before` output emits `{ value, reason, event, cancel() }` before the change, 
 | `(dismissAttempt)`     | `uiTriggerMenu`                      | `{ reason, event }`, when a dismissal was refused                                           |
 | `(select)`             | `uiTriggerMenu`, `uiTriggerMenuItem` | `{ value, reason, cancel() }`: the item, its `arguments`, `insert()` and `preventDefault()` |
 
-When `(select)` returns a Promise and the editor takes tokens, the token is inserted at once with `data-pending`, updated with what the Promise resolves to, and removed if it rejects. The menu closes either way, so people keep typing.
+When `(select)` passes a Promise to `$event.waitUntil()` and the editor takes tokens, the token is inserted at once with `data-pending`, updated with what the Promise resolves to, and removed if it rejects. The menu closes either way, so people keep typing.
 
 ## Accessibility
 

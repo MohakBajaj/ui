@@ -29,7 +29,7 @@ import {
             uiCommandItem
             #commandItem2="uiCommandItem"
             value="deploy"
-            (select)="deploy()"
+            (select)="$event.waitUntil(deploy())"
           >
             Deploy to production
             @if (commandItem2.state().pending) {
@@ -40,7 +40,7 @@ import {
             uiCommandItem
             #commandItem="uiCommandItem"
             value="sync"
-            (select)="sync()"
+            (select)="$event.waitUntil(sync())"
           >
             Sync with server
             @if (commandItem.state().pending) {

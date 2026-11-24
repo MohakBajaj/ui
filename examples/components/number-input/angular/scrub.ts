@@ -9,6 +9,8 @@ import {
   NumberInputScrubAreaCursor,
 } from "@ui-sdk/angular/number-input"
 
+let nextId = 0
+
 @Component({
   imports: [
     NumberInput,
@@ -27,9 +29,7 @@ import {
             uiNumberInput
             [defaultValue]="item.defaultValue"
             [min]="item.min"
-            (valueCommit)="
-              log('$label={{ item.label }} ' + ($event.value ?? 'empty'))
-            "
+            (valueCommit)="log(item.label + ' ' + ($event.value ?? 'empty'))"
           >
             <div uiNumberInputGroup>
               <span uiNumberInputScrubArea [pixelsPerStep]="1">
@@ -56,7 +56,7 @@ class Example {
 
   readonly log = useLog()
 
-  readonly title = "title"
+  readonly title = `frame-title-${nextId++}`
 }
 
 export { Example }

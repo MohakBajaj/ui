@@ -3,11 +3,21 @@ import { Field, FieldControl, FieldLabel } from "@ui-sdk/angular/field"
 import {
   type TriggerDefinition,
   TriggerMenu,
+  TriggerMenuContent,
   TriggerMenuInput,
+  TriggerMenuList,
 } from "@ui-sdk/angular/trigger-menu"
 
 @Component({
-  imports: [Field, FieldControl, FieldLabel, TriggerMenu, TriggerMenuInput],
+  imports: [
+    Field,
+    FieldControl,
+    FieldLabel,
+    TriggerMenu,
+    TriggerMenuContent,
+    TriggerMenuInput,
+    TriggerMenuList,
+  ],
   template: `
     <ng-container uiTriggerMenu [triggers]="triggers">
       <div uiField>
@@ -17,6 +27,9 @@ import {
           uiFieldControl
           placeholder="Type @, / or #…"
         ></textarea>
+      </div>
+      <div *uiTriggerMenuContent>
+        <div uiTriggerMenuList></div>
       </div>
     </ng-container>
   `,
@@ -42,8 +55,11 @@ class Example {
     "support",
   ]
 
-  searchChannels(query: string, { signal }: { signal: AbortSignal }) {
-    return new Promise<string[]>((resolve, reject) => {
+  readonly searchChannels = (
+    query: string,
+    { signal }: { signal: AbortSignal }
+  ) =>
+    new Promise<string[]>((resolve, reject) => {
       const timer = setTimeout(
         () =>
           resolve(
@@ -58,7 +74,6 @@ class Example {
         reject(signal.reason)
       })
     })
-  }
 
   readonly triggers: TriggerDefinition[] = [
     { char: "@", items: this.people },

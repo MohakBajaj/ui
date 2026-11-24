@@ -43,7 +43,7 @@ import {
                     @if (part.match) {
                       <mark>{{ part.text }}</mark>
                     } @else {
-                      {{ part.text }}
+                      <span>{{ part.text }}</span>
                     }
                   }
                 </span>
@@ -59,7 +59,7 @@ import {
                 @if (part.match) {
                   <mark>{{ part.text }}</mark>
                 } @else {
-                  {{ part.text }}
+                  <span>{{ part.text }}</span>
                 }
               }
             </div>

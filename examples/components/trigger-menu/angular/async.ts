@@ -83,25 +83,25 @@ class Example {
     "support",
   ]
 
-  searchChannels(query: string, { signal }: { signal: AbortSignal }) {
-    return new Promise<{ value: string; label: string }[]>(
-      (resolve, reject) => {
-        const timer = setTimeout(
-          () =>
-            resolve(
-              this.channels
-                .filter((channel) => channel.includes(query.toLowerCase()))
-                .map((channel) => ({ value: channel, label: channel }))
-            ),
-          600
-        )
-        signal.addEventListener("abort", () => {
-          clearTimeout(timer)
-          reject(signal.reason)
-        })
-      }
-    )
-  }
+  readonly searchChannels = (
+    query: string,
+    { signal }: { signal: AbortSignal }
+  ) =>
+    new Promise<{ value: string; label: string }[]>((resolve, reject) => {
+      const timer = setTimeout(
+        () =>
+          resolve(
+            this.channels
+              .filter((channel) => channel.includes(query.toLowerCase()))
+              .map((channel) => ({ value: channel, label: channel }))
+          ),
+        600
+      )
+      signal.addEventListener("abort", () => {
+        clearTimeout(timer)
+        reject(signal.reason)
+      })
+    })
 
   itemsOf(items: unknown) {
     return items as TriggerMenuDataItem[]

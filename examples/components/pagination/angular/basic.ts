@@ -47,7 +47,11 @@ import {
         @for (item of paginationList.state().items; track item) {
           <li uiPaginationItem>
             @if (typeof item === "number") {
-              <a uiPaginationLink data-variant="ghost" [page]="item"></a>
+              <button
+                uiPaginationLink
+                data-variant="ghost"
+                [page]="item"
+              ></button>
             } @else {
               <span uiPaginationEllipsis>
                 <svg lucideEllipsis></svg>

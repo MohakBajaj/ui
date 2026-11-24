@@ -16,7 +16,7 @@ import {
         uiOTPInput
         [(value)]="value"
         (beforeValueChange)="
-          log($event.value || 'Empty' + ' (' + $event.reason + ')')
+          log(($event.value || 'Empty') + ' (' + $event.reason + ')')
         "
       >
         <div uiOTPInputGroup>

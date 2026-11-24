@@ -10,6 +10,8 @@ import {
   SliderValue,
 } from "@ui-sdk/angular/slider"
 
+let nextId = 0
+
 @Component({
   imports: [
     Field,
@@ -94,7 +96,7 @@ import {
 class Example {
   readonly log = useLog()
 
-  readonly form = "form"
+  readonly form = `filters-form-${nextId++}`
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault()

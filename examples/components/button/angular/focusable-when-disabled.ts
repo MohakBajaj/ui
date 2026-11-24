@@ -18,7 +18,7 @@ import { useLog } from "../../../shared/angular/log"
           [disabled]="!ready()"
           focusableWhenDisabled
           aria-describedby="publish-hint"
-          (click)="log('Published “' + title() + '”')"
+          (action)="log('Published “' + title() + '”')"
         >
           Publish
         </button>

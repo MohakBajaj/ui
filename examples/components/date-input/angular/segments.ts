@@ -10,7 +10,7 @@ import { Field, FieldLabel } from "@ui-sdk/angular/field"
       <div uiDateInput #dateInput="uiDateInput" defaultValue="2026-11-02">
         @for (segment of dateInput.state().segments; track segment.key) {
           @if (segment.editable) {
-            <span uiDateInputSegment [segment]="segment"></span>
+            <input uiDateInputSegment [segment]="segment" />
           } @else {
             <span uiDateInputSegment [segment]="segment">–</span>
           }

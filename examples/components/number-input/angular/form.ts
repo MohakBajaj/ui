@@ -10,6 +10,8 @@ import {
   NumberInputIncrement,
 } from "@ui-sdk/angular/number-input"
 
+let nextId = 0
+
 @Component({
   imports: [
     Field,
@@ -93,7 +95,7 @@ import {
 class Example {
   readonly log = useLog()
 
-  readonly form = "form"
+  readonly form = `order-form-${nextId++}`
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault()

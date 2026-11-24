@@ -29,12 +29,11 @@ import {
     >
       <div uiField>
         <label uiFieldLabel>Task</label>
-        <textarea
+        <input
           uiTriggerMenuInput
           uiFieldControl
           placeholder="Type @ to assign someone…"
-          data-ng-as="input"
-        ></textarea>
+        />
       </div>
       <div *uiTriggerMenuContent>
         <div uiTriggerMenuList #triggerMenuList="uiTriggerMenuList">

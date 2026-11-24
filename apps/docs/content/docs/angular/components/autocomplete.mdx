@@ -667,8 +667,8 @@ A `before` output emits `{ value, reason, event, cancel() }` before the change, 
 | `(beforeValueChange)`  | `uiAutocomplete` | `{ value, reason, cancel() }`: the new text, and the [reason](#reasons)  |
 | `(beforeOpenChange)`   | `uiAutocomplete` | `{ value, reason, cancel() }`: the new state, and the [reason](#reasons) |
 | `(openChangeComplete)` | `uiAutocomplete` | `$event`, whether it's open, after the animation                         |
-| `(submit)`             | `uiAutocomplete` | `(value, { event })`: the text, when Enter submits                       |
-| `(highlight)`          | `uiAutocomplete` | `(value, { index, event })`: the highlighted suggestion                  |
+| `(submit)`             | `uiAutocomplete` | `{ value, event }`: the text, when Enter submits                         |
+| `(highlight)`          | `uiAutocomplete` | `{ value, index, event }`: the highlighted suggestion                    |
 | `(loadMore)`           | `uiAutocomplete` | `()`, when the last suggestion is reached                                |
 | `(dismissAttempt)`     | `uiAutocomplete` | `{ reason, event }`, when a dismissal was refused                        |
 

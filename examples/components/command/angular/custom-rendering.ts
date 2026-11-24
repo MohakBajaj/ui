@@ -40,7 +40,7 @@ import {
                 @if (segment.match) {
                   <strong>{{ segment.text }}</strong>
                 } @else {
-                  {{ segment.text }}
+                  <span>{{ segment.text }}</span>
                 }
               }
             </span>

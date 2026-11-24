@@ -479,7 +479,7 @@ A `before` output emits `{ value, reason, event, cancel() }` before the change, 
 | ---------------------- | ----------------- | ------------------------------------------------------------------------- |
 | `[(value)]`            | `uiAccordion`     | The open items                                                            |
 | `(beforeValueChange)`  | `uiAccordion`     | `{ value, reason, cancel() }`: the open items, and the [reason](#reasons) |
-| `(beforeOpenChange)`   | `uiAccordionItem` | `(open, details)`, before `(beforeValueChange)`                           |
+| `(beforeOpenChange)`   | `uiAccordionItem` | `{ value, reason, cancel() }`, before `(beforeValueChange)`               |
 | `(openChangeComplete)` | `uiAccordionItem` | `$event`, whether it's open, after the panel's animation                  |
 
 ## Accessibility

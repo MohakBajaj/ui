@@ -2,6 +2,8 @@ import { Component } from "@angular/core"
 import { FieldDescription, FieldLegend, FieldSet } from "@ui-sdk/angular/field"
 import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/angular/radio"
 
+let nextId = 0
+
 @Component({
   imports: [
     FieldDescription,
@@ -42,7 +44,7 @@ class Example {
     { value: "yearly", label: "Yearly", price: "$120 per year" },
   ]
 
-  readonly id = "id"
+  readonly id = `plan-${nextId++}`
 }
 
 export { Example }

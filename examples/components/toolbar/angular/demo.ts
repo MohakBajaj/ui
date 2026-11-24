@@ -31,7 +31,7 @@ import {
           uiToggle
           [aria-label]="item.label"
           (beforePressedChange)="
-            log('$label={{ item.label }} ' + ($event.value ? 'on' : 'off'))
+            log(item.label + ' ' + ($event.value ? 'on' : 'off'))
           "
         >
           <span uiToggleIcon>

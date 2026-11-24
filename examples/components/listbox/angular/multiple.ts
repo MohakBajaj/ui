@@ -15,7 +15,7 @@ import {
       multiple
       [defaultValue]="['cheese', 'onion']"
       (beforeValueChange)="
-        log($event.value.join(', ') || 'Nothing' + ' (' + $event.reason + ')')
+        log(($event.value.join(', ') || 'Nothing') + ' (' + $event.reason + ')')
       "
       aria-label="Toppings"
     >

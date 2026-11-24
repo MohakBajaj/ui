@@ -403,7 +403,7 @@ A `before` output emits `{ value, reason, event, cancel() }` before the change, 
 | `[(page)]`              | `uiCarousel` | The current page                                                        |
 | `[(playing)]`           | `uiCarousel` | Whether it rotates                                                      |
 | `(beforePageChange)`    | `uiCarousel` | `{ value, reason, cancel() }`: the new page, and the [reason](#reasons) |
-| `(pageChangeComplete)`  | `uiCarousel` | `(page)`: the page the slides came to rest on                           |
+| `(pageChangeComplete)`  | `uiCarousel` | `$event`, the page the slides came to rest on                           |
 | `(beforePlayingChange)` | `uiCarousel` | `{ value, reason, cancel() }`: whether it rotates, and the reason       |
 
 ## Accessibility

@@ -3,6 +3,8 @@ import { LucideCheck } from "@lucide/angular"
 import { Field, FieldLabel } from "@ui-sdk/angular/field"
 import { Radio, RadioGroup } from "@ui-sdk/angular/radio"
 
+let nextId = 0
+
 @Component({
   imports: [Field, FieldLabel, Radio, RadioGroup, LucideCheck],
   template: `
@@ -52,7 +54,7 @@ class Example {
     { value: "none", label: "Nothing", description: "Turn notifications off." },
   ]
 
-  readonly id = "id"
+  readonly id = `plan-${nextId++}`
 }
 
 export { Example }

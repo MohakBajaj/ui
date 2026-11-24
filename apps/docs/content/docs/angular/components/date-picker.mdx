@@ -395,7 +395,7 @@ A `before` output emits `{ value, reason, event, cancel() }` before the change, 
 | `[(month)]`            | `uiDatePicker` | The calendar's first month                                                    |
 | `(beforeValueChange)`  | `uiDatePicker` | `{ value, reason, cancel() }`: the new value, and the [reason](#reasons)      |
 | `(beforeOpenChange)`   | `uiDatePicker` | `{ value, reason, cancel() }`: whether the popup opens, and the reason        |
-| `(openChangeComplete)` | `uiDatePicker` | `(open)`: once the popup has finished opening or closing                      |
+| `(openChangeComplete)` | `uiDatePicker` | `$event`, whether it's open, once the popup has finished opening or closing   |
 | `(beforeMonthChange)`  | `uiDatePicker` | `{ value, reason, cancel() }`: the calendar's new first month, and the reason |
 | `(dismissAttempt)`     | `uiDatePicker` | `{ reason, event }`, when a dismissal was refused                             |
 

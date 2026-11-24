@@ -3,6 +3,8 @@ import { useLog } from "../../../shared/angular/log"
 import { Field, FieldLabel } from "@ui-sdk/angular/field"
 import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/angular/radio"
 
+let nextId = 0
+
 @Component({
   imports: [Field, FieldLabel, Radio, RadioGroup, RadioIndicator],
   template: `
@@ -47,7 +49,7 @@ class Example {
 
   readonly log = useLog()
 
-  readonly id = "id"
+  readonly id = `plan-${nextId++}`
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault()

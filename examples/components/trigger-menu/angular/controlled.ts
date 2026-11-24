@@ -1,10 +1,23 @@
 import { Component, signal } from "@angular/core"
 import { useLog } from "../../../shared/angular/log"
 import { Field, FieldControl, FieldLabel } from "@ui-sdk/angular/field"
-import { TriggerMenu, TriggerMenuInput } from "@ui-sdk/angular/trigger-menu"
+import {
+  TriggerMenu,
+  TriggerMenuContent,
+  TriggerMenuInput,
+  TriggerMenuList,
+} from "@ui-sdk/angular/trigger-menu"
 
 @Component({
-  imports: [Field, FieldControl, FieldLabel, TriggerMenu, TriggerMenuInput],
+  imports: [
+    Field,
+    FieldControl,
+    FieldLabel,
+    TriggerMenu,
+    TriggerMenuContent,
+    TriggerMenuInput,
+    TriggerMenuList,
+  ],
   template: `
     <ng-container
       uiTriggerMenu
@@ -34,6 +47,9 @@ import { TriggerMenu, TriggerMenuInput } from "@ui-sdk/angular/trigger-menu"
           uiFieldControl
           placeholder="Type @ or /…"
         ></textarea>
+      </div>
+      <div *uiTriggerMenuContent>
+        <div uiTriggerMenuList></div>
       </div>
     </ng-container>
   `,

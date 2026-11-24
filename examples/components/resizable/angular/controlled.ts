@@ -40,8 +40,7 @@ import {
   `,
 })
 class Example {
-  readonly format = (layout: number[]) =>
-    this.layout().map(Math.round).join(" / ")
+  readonly format = (layout: number[]) => layout.map(Math.round).join(" / ")
 
   readonly log = useLog()
 

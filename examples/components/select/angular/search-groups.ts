@@ -65,7 +65,7 @@ import {
                         @if (segment.match) {
                           <b>{{ segment.text }}</b>
                         } @else {
-                          {{ segment.text }}
+                          <span>{{ segment.text }}</span>
                         }
                       }
                     </span>

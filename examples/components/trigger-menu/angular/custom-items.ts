@@ -2,6 +2,7 @@ import { Component } from "@angular/core"
 import { LucideUsers } from "@lucide/angular"
 import { Field, FieldControl, FieldLabel } from "@ui-sdk/angular/field"
 import {
+  type TriggerDefinition,
   TriggerMenu,
   TriggerMenuContent,
   TriggerMenuGroup,
@@ -30,19 +31,7 @@ import {
     LucideUsers,
   ],
   template: `
-    <ng-container
-      uiTriggerMenu
-      [triggers]="[
-        {
-          char: '@',
-          spaces: 2,
-          maxLength: 30,
-          pattern: /[p{L}.'-]/u,
-          filter: 'startsWith',
-          insert: (item) => \`@\${item.label.split(' ')[0]} \`,
-        },
-      ]"
-    >
+    <ng-container uiTriggerMenu [triggers]="triggers">
       <div uiField>
         <label uiFieldLabel>Message</label>
         <textarea
@@ -88,6 +77,17 @@ import {
   `,
 })
 class Example {
+  readonly triggers: TriggerDefinition[] = [
+    {
+      char: "@",
+      spaces: 2,
+      maxLength: 30,
+      pattern: /[\p{L}.'-]/u,
+      filter: "startsWith",
+      insert: (item) => `@${item.label.split(" ")[0]} `,
+    },
+  ]
+
   readonly people = [
     { value: "hollis", label: "Hollis Grant" },
     { value: "ines", label: "Inès Moreau" },

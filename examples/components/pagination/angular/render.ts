@@ -45,13 +45,13 @@ import {
         @for (item of list.state().items; track item) {
           <li uiPaginationItem>
             @if (typeof item === "number") {
-              <a uiPaginationLink #link="uiPaginationLink" [page]="item">
+              <button uiPaginationLink #link="uiPaginationLink" [page]="item">
                 {{
                   link.state().current
                     ? "Page " + link.state().page
                     : link.state().page
                 }}
-              </a>
+              </button>
             } @else {
               <span uiPaginationEllipsis></span>
             }

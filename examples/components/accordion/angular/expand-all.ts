@@ -32,12 +32,12 @@ import { createAccordionController } from "@ui-sdk/core/accordion"
           @for (week of weeks; track week.value) {
             <div
               uiAccordionItem
-              attach
-              setElement
-              week.value
+              #item
               [value]="week.value"
               (beforeOpenChange)="openChange(week.value, $event.value, $event)"
-              (openChangeComplete)="openChangeComplete(week.value, $event)"
+              (openChangeComplete)="
+                openChangeComplete(week.value, $event, item)
+              "
             >
               <h3 uiAccordionHeader>
                 <button uiAccordionTrigger>
@@ -91,15 +91,6 @@ class Example {
 
   readonly syllabus = createAccordionController()
 
-  readonly elements = new Map<string, HTMLElement>()
-
-  setElement(value: string) {
-    return (element: HTMLElement) => {
-      this.elements.set(value, element)
-      return () => this.elements.delete(value)
-    }
-  }
-
   pressed: string | null = null
 
   openChange(value: string, open: boolean, details: ChangeDetails) {
@@ -110,14 +101,12 @@ class Example {
     }
   }
 
-  openChangeComplete(value: string, open: boolean) {
+  openChangeComplete(value: string, open: boolean, item: HTMLElement) {
     if (!open || this.pressed !== value) {
       return
     }
     this.pressed = null
-    this.elements
-      .get(value)
-      ?.scrollIntoView({ block: "nearest", behavior: "smooth" })
+    item.scrollIntoView({ block: "nearest", behavior: "smooth" })
   }
 }
 

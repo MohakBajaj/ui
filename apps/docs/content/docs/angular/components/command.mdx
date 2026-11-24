@@ -220,7 +220,7 @@ Use [async options](../utilities/async-options) to wait for typing to pause and 
 
 ## Pending Actions
 
-Return a promise from `(action)` or an item’s `(select)`. The command gets `data-pending`, `aria-busy` and `aria-disabled` until it settles; further presses do not start another run. A rejection becomes the command’s `error` state, which clears when it runs again.
+Pass a promise to `$event.waitUntil()` in `(action)` or an item’s `(select)`. The command gets `data-pending`, `aria-busy` and `aria-disabled` until it settles; further presses do not start another run. A rejection becomes the command’s `error` state, which clears when it runs again.
 
 An item’s `(select)` runs before `(action)`. Call `preventDefault()` on its event to stop the action.
 
@@ -504,9 +504,9 @@ A `before` output emits `{ value, reason, event, cancel() }` before the change, 
 | `(beforeValueChange)` | `uiCommand`     | `{ value, reason, cancel() }`: the highlighted command, the [reason](#reasons) and its `index` |
 | `(beforeQueryChange)` | `uiCommand`     | `{ value, reason, cancel() }`: the new text, and the [reason](#reasons)                        |
 | `(beforePagesChange)` | `uiCommand`     | `{ value, reason, cancel() }`: the new stack, and the [reason](#reasons)                       |
-| `(action)`            | `uiCommand`     | `(value, { event })`: the command that ran. Return a Promise to mark it pending                |
+| `(action)`            | `uiCommand`     | `{ value, event, waitUntil() }`: the command that ran. `waitUntil(promise)` marks it pending   |
 | `(loadMore)`          | `uiCommand`     | `()`, when the last command is reached                                                         |
-| `(select)`            | `uiCommandItem` | `(event)`: before `(action)`. `preventDefault()` skips it. A Promise marks it pending          |
+| `(select)`            | `uiCommandItem` | `{ event, waitUntil() }`: before `(action)`. `$event.event.preventDefault()` skips it          |
 
 ## Accessibility
 
