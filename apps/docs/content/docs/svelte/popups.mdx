@@ -69,6 +69,8 @@ Set `dismissible` to false to stop Escape, outside presses, focus leaving, Back,
 
 Use `onDismissAttempt` to hear each refused dismissal. [State and Events](./state-and-events) shows how to cancel just one reason.
 
+Escape reaches the elements inside a popup first. One that handles the key and calls `preventDefault()`, like a search field clearing its text, keeps the popup open. To close it on that Escape anyway, listen for `keydown` on the content in the capture phase, before the element inside hears it, and close the popup there with its controller or open state.
+
 ## Modals and Sheets
 
 `modal` set to true makes the rest of the page inert and locks scrolling. Each component documents its default.

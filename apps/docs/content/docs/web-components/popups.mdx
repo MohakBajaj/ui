@@ -40,6 +40,8 @@ Set `dismissible="false"` on the root to stop Escape, outside presses, focus lea
 
 The `dismissattempt` event reports refused dismissals through `event.detail.reason`. [State and Events](./state-and-events) shows how to cancel just one reason.
 
+Escape reaches the elements inside a popup first. One that handles the key and calls `preventDefault()`, like a search field clearing its text, keeps the popup open. To close it on that Escape anyway, listen for `keydown` on the content in the capture phase, before the element inside hears it, and close the popup there with the root's `api.close()`.
+
 ## Modals and Sheets
 
 `modal="true"` makes the rest of the page inert and locks scrolling. Each component documents its default.
