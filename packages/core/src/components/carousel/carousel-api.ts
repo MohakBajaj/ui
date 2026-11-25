@@ -172,6 +172,7 @@ function carouselApiBody(
     pages: () => layout,
     visual: () => visual,
     measure,
+    from: { component: "carousel", id: context.id },
   })
 
   const autoplay = createAutoplay({
