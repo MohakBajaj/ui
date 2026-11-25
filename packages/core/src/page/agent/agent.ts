@@ -1114,11 +1114,7 @@ function createAgent(
   // work without calling `snapshot`. A long page keeps the fields the steps
   // acted on or changed, then the first others, `limit` in all, and says how
   // many more there were, so a table of checkboxes doesn't fill the model's context.
-  const values = (
-    before: ReturnType<typeof capture>,
-    touched: Set<string>,
-    had = shownInCall
-  ) => {
+  const values = (before: ReturnType<typeof capture>, touched: Set<string>) => {
     const fields: {
       ref: string
       label: string
@@ -1168,7 +1164,7 @@ function createAgent(
         key &&
         entry.key &&
         !entry.offLimits &&
-        had.has(entry.ref) &&
+        shownInCall.has(entry.ref) &&
         !listed.has(entry.ref)
       ) {
         fields.push({
@@ -2756,10 +2752,9 @@ function createAgent(
     }
   }
 
-  // What `act` returns for a call cancelled before its turn. It lists only the
-  // fields on the page now, not the ones the running call had.
+  // What `act` returns for a call cancelled before its turn, with no values,
+  // since reading the page then would show what the running call has.
   const cancelledAct = (input: unknown) => {
-    const before = capture()
     const invalid = malformed(input)
     const [step] = invalid ? [] : (input as { steps: AgentStep[] }).steps
     return {
@@ -2770,7 +2765,7 @@ function createAgent(
       },
       steps: [],
       appeared: [],
-      values: values(before, new Set(), before.shown),
+      values: {},
     }
   }
 
@@ -2962,7 +2957,13 @@ function createAgent(
     cancelled?: () => T
   ) =>
     new Promise<T>((resolve, reject) => {
-      const stop = () => resolve(cancelled!())
+      const stop = () => {
+        try {
+          resolve(cancelled!())
+        } catch (error) {
+          reject(error)
+        }
+      }
       if (cancelled && signal?.aborted) {
         return stop()
       }
