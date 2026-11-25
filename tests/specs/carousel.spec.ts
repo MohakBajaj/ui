@@ -232,6 +232,23 @@ test.describe("loop", () => {
     expect(await backward()).toBeLessThan(12)
   })
 
+  test("Next pressed faster than the slides land never scrolls back", async ({
+    page,
+    open,
+  }) => {
+    await open("carousel", { loop: "", slides: "4", "per-view": "2" })
+    await settled(page)
+    const backward = await watchBackward(page)
+    await nextButton(page).evaluate(async (button: HTMLElement) => {
+      for (let press = 0; press < 6; press++) {
+        button.click()
+        await new Promise((resolve) => setTimeout(resolve, 60))
+      }
+    })
+    await expectShown(page, 2, 3)
+    expect(await backward()).toBeLessThan(12)
+  })
+
   test("a mouse drag back from the first slide shows the last", async ({
     page,
   }) => {

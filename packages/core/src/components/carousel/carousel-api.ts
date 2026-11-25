@@ -247,6 +247,15 @@ function carouselApiBody(
     return change("playing", playing, { reason, event })
   }
 
+  let held: { heading?: 1 | -1 } | undefined
+  function followHeld() {
+    if (held) {
+      heading = held.heading
+      followPage()
+      heading = undefined
+    }
+  }
+
   // Scrolls to the current page, if the viewport isn't there. A spring on
   // its way somewhere else turns toward it; the user's own scroll or drag
   // settles it later.
@@ -264,8 +273,12 @@ function carouselApiBody(
     if (!layout[index]) {
       return
     }
-    if (animate) {
-      loop.rotateToward(index, heading)
+    held = undefined
+    // A step the slides can't turn for yet, pressed again before the last
+    // one lands, waits while the spring goes on, rather than heading back.
+    if (animate && !loop.rotateToward(index, heading) && motion.isMoving()) {
+      held = { heading }
+      return
     }
     const position = clamp(layout[index].position, 0, maxScroll)
     if (Math.abs(motion.position() - position) >= 1 || !store.get().snapping) {
@@ -486,7 +499,12 @@ function carouselApiBody(
         store.set({ dragging })
         autoplay.setPaused("drag", dragging)
       },
-      onScroll: updateInView,
+      onScroll: () => {
+        updateInView()
+        if (held) {
+          queueMicrotask(followHeld)
+        }
+      },
     })
     motion = viewportMotion
     cleanups.push(viewportMotion.destroy, () => {
