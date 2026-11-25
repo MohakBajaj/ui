@@ -414,6 +414,9 @@ type AttachConfig = {
   // at once rather than at the next slow check.
   rendered?: (listener: () => void) => () => void
   initialFocus?: () => HTMLElement | null | undefined | void
+  // Whether the content names where focus goes, which a touch open follows
+  // instead of focusing the popup, like a search dialog's field.
+  chosenFocus?: () => boolean
   // An element shown in the top layer just below the popup, like a dialog's
   // backdrop. It animates in and out with the popup, and pressing it is an outside press.
   backdrop?: () => HTMLElement | undefined
@@ -991,15 +994,20 @@ function createPopupLayer<
     firstUsable(chain, take)
   }
 
-  function initialFocus(resolve?: () => HTMLElement | null | undefined | void) {
+  function initialFocus(
+    resolve?: () => HTMLElement | null | undefined | void,
+    chosen?: () => boolean
+  ) {
     if (!focusPending || !shown || !store.get().open || !behavior.movesFocus) {
       return
     }
     focusPending = false
+    const planned = initialFocusPlan(opener)
     const plan =
-      opener === "initial" && behavior.focusOnMount
+      (opener === "initial" && behavior.focusOnMount) ||
+      (planned === "popup" && chosen?.())
         ? ("auto" as const)
-        : initialFocusPlan(opener)
+        : planned
     if (plan === "none") {
       return
     }
@@ -1278,7 +1286,7 @@ function createPopupLayer<
           !usable(focused as HTMLElement)
         ) {
           focusPending = true
-          initialFocus(config.initialFocus)
+          initialFocus(config.initialFocus, config.chosenFocus)
         }
       })
     }
@@ -1398,7 +1406,7 @@ function createPopupLayer<
       }
     }
     // Children bind in the same commit. Focus once they have.
-    queueMicrotask(() => initialFocus(config.initialFocus))
+    queueMicrotask(() => initialFocus(config.initialFocus, config.chosenFocus))
 
     return () => {
       cleanups.forEach((cleanup) => cleanup())
