@@ -184,6 +184,16 @@ type ChangeDetails<Reason extends string = string> = Reason extends unknown
   : never
 
 /**
+ * The details of a change to text the user types, like a combobox's query.
+ * @stable
+ */
+type TextChangeDetails<Reason extends string = string> =
+  ChangeDetails<Reason> & {
+    /** Whether an input method is still composing the text, like a half-typed `とうk` on its way to `東京`. Search once it's `false`: when a composition ends, its text is reported again with `false`. */
+    composing: boolean
+  }
+
+/**
  * What every write method on a controller takes, like
  * `setValue(value, { reason, event })`. Both reach the change callback's details.
  * @stable
@@ -377,5 +387,6 @@ export {
   isDismissal,
   type ReasonVocabulary,
   resolveSource,
+  type TextChangeDetails,
   withSource,
 }
