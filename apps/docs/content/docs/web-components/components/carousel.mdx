@@ -192,6 +192,28 @@ and the nearest page becomes the current one.
 
 Buttons, keys, indicators, rotation, and controllers animate the scroll position. A second press updates the destination while it is moving. Reduced motion makes those changes immediate.
 
+## Slides from Markup
+
+Each slide is a `<ui-carousel-item>`. When the cards come as markup, like a list a server or a CMS renders, put each card in an item:
+
+```html
+<ui-carousel-content>
+  <ui-carousel-item><article class="card">…</article></ui-carousel-item>
+  <ui-carousel-item><article class="card">…</article></ui-carousel-item>
+</ui-carousel-content>
+```
+
+When you can't change the markup, wrap the cards in items from a script. The carousel measures each new item as a slide:
+
+```js
+const content = document.querySelector("ui-carousel-content")
+for (const card of content.querySelectorAll(":scope > .card")) {
+  const item = document.createElement("ui-carousel-item")
+  card.replaceWith(item)
+  item.append(card)
+}
+```
+
 ## Custom Rendering
 
 Elements have no render functions. Style them from their attributes, and watch those attributes to change
