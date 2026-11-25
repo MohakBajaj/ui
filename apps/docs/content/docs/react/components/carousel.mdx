@@ -214,13 +214,17 @@ toggle's `playing` and `paused`.
 
 Use `data-disabled` on Previous and Next at their end, `data-selected` on the current indicator, `data-active` on the current page's slides, `data-in-view` on slides in view, and `data-playing` and `data-paused` on the root.
 
-Slides size themselves: give them a `flex-basis` of 100% for one to a view or a third for three, and put the gap on the content, taking it out of each basis. The viewport writes the few styles scrolling needs inline: its overflow, `scroll-snap-type` and `overscroll-behavior`. Slides get `flex-shrink: 0` and their snap alignment. Hide the scrollbar with `scrollbar-width: none` if you like.
+Slides size themselves: give them a `flex-basis` of 100% for one to a view or a third for three, and put the gap on the content, taking it out of each basis. The viewport writes the few styles scrolling needs inline: its overflow, `scroll-snap-type` and `overscroll-behavior`. Slides get `flex-shrink: 0` and their snap alignment. The content is a flex row, or a column when vertical. To lay the slides out in a grid instead, set `--carousel-display: grid` on it. Hide the scrollbar with `scrollbar-width: none` if you like.
 
 Each part has a `data-slot`, such as `carousel-item`, and its state attributes are listed under [Data Attributes](#data-attributes).
 
 ### Carousel [#styling-carousel]
 
 <CssVariables component="carousel" part="root" />
+
+### CarouselContent [#styling-carouselcontent]
+
+<CssVariables component="carousel" part="content" />
 
 ## Data Attributes
 

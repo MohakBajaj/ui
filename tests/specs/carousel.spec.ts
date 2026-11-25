@@ -37,6 +37,23 @@ test.describe("structure", () => {
   test("the first slide shows first", async ({ page }) => {
     await expectShown(page, 0)
   })
+
+  test("the content lays its slides out as --carousel-display says", async ({
+    page,
+  }) => {
+    const content = page.locator('[data-slot="carousel-content"]')
+    await expect(content).toHaveCSS("display", "flex")
+    await page.addStyleTag({
+      content: `[data-slot="carousel-content"] {
+        --carousel-display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 100%;
+      }`,
+    })
+    await expect(content).toHaveCSS("display", "grid")
+    await nextButton(page).click()
+    await expectShown(page, 1)
+  })
 })
 
 test.describe("previous and next", () => {

@@ -464,10 +464,12 @@ const carouselPrimitive = /* @__PURE__ */ definePrimitive({
         "aria-live": state.playing ? "off" : "polite",
         "aria-atomic": "false",
         "data-orientation": state.orientation,
+        // Inline, so a server-rendered carousel lays out before it hydrates.
+        // A grid sets the variable, since a class can't beat an inline style.
         style:
           state.orientation === "vertical"
-            ? "display:flex;flex-direction:column"
-            : "display:flex",
+            ? "display:var(--carousel-display,flex);flex-direction:column"
+            : "display:var(--carousel-display,flex)",
       }),
     }),
 
